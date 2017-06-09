@@ -14,18 +14,18 @@
 # under the License.
 #
 
-property newClientAcceptRef  ${nukleus:newRouteRef()} # external
+property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-property clientAccept "nukleus://tls/streams/source"
+property serverAccept "nukleus://tls/streams/source"
 
-accept ${clientAccept}
-  option nukleus:route  ${newClientAcceptRef}
+accept "tls://localhost:9090"
+  option tls:transport ${serverAccept}
+  option tls:keyStoreFile "src/test/democa/localhost"
+  option tls:keyStorePassword "generated"
+  option nukleus:route  ${newServerAcceptRef}
   option nukleus:window 8192
   option nukleus:transmission "duplex"
 accepted
-
-read nukleus:begin.ext [0x09] "localhost"
-
 connected
 
 read "Hello, world"
