@@ -50,4 +50,15 @@ public class ClientIT
         k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+            "${scripts}/large.response.payload/client",
+            "${scripts}/large.response.payload/server"})
+    public void largeResponsePayload() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 }
