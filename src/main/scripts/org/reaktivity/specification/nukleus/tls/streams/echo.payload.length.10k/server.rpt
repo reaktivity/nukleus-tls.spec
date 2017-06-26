@@ -18,8 +18,6 @@ property newClientAcceptRef  ${nukleus:newRouteRef()} # external
 
 property clientAccept "nukleus://tls/streams/source"
 
-property data ${tls:randomBytes(10000)}
-
 accept ${clientAccept}
   option nukleus:route  ${newClientAcceptRef}
   option nukleus:window 8192
@@ -30,7 +28,7 @@ read nukleus:begin.ext [0x09] "localhost"
 
 connected
 
-read  "Hello, world"
+read ([0..10240] :server10k)
 
-write ${data}
+write ${server10k}
 

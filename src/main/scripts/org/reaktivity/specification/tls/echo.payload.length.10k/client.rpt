@@ -16,7 +16,7 @@
 
 property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-property data ${tls:randomBytes(10000)}
+property client10k ${tls:randomBytes(10240)}
 
 connect await ROUTED_SERVER
         "tls://localhost:9090"
@@ -28,7 +28,7 @@ connect await ROUTED_SERVER
   option nukleus:transmission "duplex"
 connected
 
-write "Hello, world"
+write ${client10k}
 
-read  ${data}
+read  ${client10k}
 

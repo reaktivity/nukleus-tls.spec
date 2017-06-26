@@ -45,7 +45,7 @@ public class ServerIT
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
-    public void connectionEstablished() throws Exception
+    public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
@@ -54,10 +54,10 @@ public class ServerIT
 
     @Test
     @Specification({
-            "${scripts}/large.response.payload/client",
-            "${scripts}/large.response.payload/server"})
+        "${scripts}/echo.payload.length.10k/client",
+        "${scripts}/echo.payload.length.10k/server"})
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
-    public void largeResponsePayload() throws Exception
+    public void shouldEchoPayloadLength10k() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");

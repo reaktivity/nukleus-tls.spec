@@ -44,7 +44,7 @@ public class ClientIT
     @Specification({
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
-    public void connectionEstablished() throws Exception
+    public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -53,9 +53,9 @@ public class ClientIT
 
     @Test
     @Specification({
-            "${scripts}/large.response.payload/client",
-            "${scripts}/large.response.payload/server"})
-    public void largeResponsePayload() throws Exception
+        "${scripts}/echo.payload.length.10k/client",
+        "${scripts}/echo.payload.length.10k/server"})
+    public void shouldEchoPayloadLength10k() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
