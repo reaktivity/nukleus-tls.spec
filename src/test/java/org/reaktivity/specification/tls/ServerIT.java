@@ -51,4 +51,16 @@ public class ServerIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+            "${scripts}/large.response.payload/client",
+            "${scripts}/large.response.payload/server"})
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void largeResponsePayload() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
