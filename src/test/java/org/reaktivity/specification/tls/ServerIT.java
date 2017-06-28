@@ -63,4 +63,16 @@ public class ServerIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${scripts}/echo.payload.length.100k/client",
+        "${scripts}/echo.payload.length.100k/server"})
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void shouldEchoPayloadLength100k() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
