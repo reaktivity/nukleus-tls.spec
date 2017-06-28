@@ -61,4 +61,15 @@ public class ClientIT
         k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${scripts}/echo.payload.length.100k/client",
+        "${scripts}/echo.payload.length.100k/server"})
+    public void shouldEchoPayloadLength100k() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 }
