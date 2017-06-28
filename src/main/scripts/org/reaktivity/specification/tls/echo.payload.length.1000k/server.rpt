@@ -29,6 +29,6 @@ accept "tls://localhost:9090"
 accepted
 connected
 
-read ([0..102400] :server100k)
+read ([0..1024000] :server100k)
 
 write ${server100k}
