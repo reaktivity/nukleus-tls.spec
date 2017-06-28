@@ -23,6 +23,7 @@ connect await ROUTED_CLIENT
   option nukleus:route ${newClientAcceptRef}
   option nukleus:window 8192
   option nukleus:transmission "duplex"
+  option nukleus:throttle "message"
 
 write nukleus:begin.ext [0x09] "localhost"
 
@@ -31,3 +32,4 @@ connected
 write ${client10k}
 
 read  ${client10k}
+

@@ -22,6 +22,7 @@ accept ${clientAccept}
   option nukleus:route  ${newClientAcceptRef}
   option nukleus:window 8192
   option nukleus:transmission "duplex"
+  option nukleus:throttle "message"
 accepted
 
 read nukleus:begin.ext [0x09] "localhost"
