@@ -14,22 +14,16 @@
 # under the License.
 #
 
-property newClientAcceptRef  ${nukleus:newRouteRef()} # external
+property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-property client10k ${tls:randomBytes(10240)}
-
-connect await ROUTED_CLIENT
-        "nukleus://tls/streams/source"
-  option nukleus:route ${newClientAcceptRef}
+connect await ROUTED_SERVER
+        "tls://localhost:9090"
+  option tls:transport "nukleus://tls/streams/source"
+  option tls:trustStoreFile "src/test/democa/cacerts"
+  option tls:trustStorePassword "generated"
+  option nukleus:route ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
-  option nukleus:throttle "message"
-
-write nukleus:begin.ext [0x09] "localhost"
-
 connected
 
-write ${client10k}
-
-read  ${client10k}
-
+write close
