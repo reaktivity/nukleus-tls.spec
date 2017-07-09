@@ -18,6 +18,7 @@ package org.reaktivity.specification.nukleus.tls.stream;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -25,7 +26,6 @@ import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
-import org.reaktivity.specification.nukleus.NukleusRule;
 
 public class ClientIT
 {
@@ -34,11 +34,8 @@ public class ClientIT
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
-    private final NukleusRule nukleus = new NukleusRule()
-        .directory("target/nukleus-itests");
-
     @Rule
-    public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
+    public final TestRule chain = outerRule(k3po).around(timeout);
 
     @Test
     @Specification({
@@ -78,6 +75,73 @@ public class ClientIT
         "${scripts}/echo.payload.length.1000k/client",
         "${scripts}/echo.payload.length.1000k/server"})
     public void shouldEchoPayloadLength1000k() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/server.sent.write.close/client",
+        "${scripts}/server.sent.write.close/server"})
+    public void shouldReceiveServerSentWriteClose() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.sent.write.close/client",
+        "${scripts}/client.sent.write.close/server"})
+    public void shouldReceiveClientSentWriteClose() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/server.sent.write.abort/client",
+        "${scripts}/server.sent.write.abort/server"})
+    public void shouldReceiveServerSentWriteAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.sent.write.abort/client",
+        "${scripts}/client.sent.write.abort/server"})
+    public void shouldReceiveClientSentWriteAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Ignore("DATA vs RESET read order not yet guaranteed to match write order")
+    @Test
+    @Specification({
+        "${scripts}/server.sent.read.abort/client",
+        "${scripts}/server.sent.read.abort/server"})
+    public void shouldReceiveServerSentReadAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.sent.read.abort/client",
+        "${scripts}/client.sent.read.abort/server"})
+    public void shouldReceiveClientSentReadAbort() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
