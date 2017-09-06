@@ -149,4 +149,15 @@ public class ServerIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${scripts}/client.hello.malformed/client",
+        "${scripts}/client.hello.malformed/server"})
+    public void shouldResetMalformedClientHello() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
