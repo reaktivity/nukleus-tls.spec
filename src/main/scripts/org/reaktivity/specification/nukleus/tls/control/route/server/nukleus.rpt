@@ -18,8 +18,6 @@ property nukleiRG010001N ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010001N ${nukleiRG010001N.controlNew("tls")}
 
-property authorization [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00] # external scope
-
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010001N.nukleus)}
         option agrona:writer ${agrona:broadcastTransmitter(controlRG010001N.controller)}
