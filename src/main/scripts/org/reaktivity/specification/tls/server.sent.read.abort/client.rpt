@@ -27,3 +27,6 @@ connect await ROUTED_SERVER
 connected
 
 write aborted
+
+read aborted
+

@@ -16,18 +16,14 @@
 
 property newClientAcceptRef  ${nukleus:newRouteRef()} # external
 
-property clientAccept "nukleus://tls/streams/source"
-
-accept ${clientAccept}
-  option nukleus:route  ${newClientAcceptRef}
+connect await ROUTED_CLIENT
+        "nukleus://tls/streams/source"
+  option nukleus:route ${newClientAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
-accepted
 
-read nukleus:begin.ext [0x09] "localhost"
+write nukleus:begin.ext [0x09] "localhost"
 
 connected
-
-read aborted
 
 write aborted
