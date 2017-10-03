@@ -31,4 +31,4 @@ connected
 
 write ${client1000k}
 
-read  ${client1000k}
+read ${client1000k}
