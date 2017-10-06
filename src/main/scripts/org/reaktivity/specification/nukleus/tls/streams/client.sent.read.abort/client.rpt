@@ -26,6 +26,4 @@ write nukleus:begin.ext [0x09] "localhost"
 
 connected
 
-write abort
-
 read abort

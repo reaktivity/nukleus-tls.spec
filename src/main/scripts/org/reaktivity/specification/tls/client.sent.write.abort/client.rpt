@@ -27,5 +27,3 @@ connect await ROUTED_SERVER
 connected
 
 write abort
-
-read aborted

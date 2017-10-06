@@ -26,6 +26,4 @@ connect await ROUTED_SERVER
   option nukleus:transmission "duplex"
 connected
 
-
-
 read aborted
