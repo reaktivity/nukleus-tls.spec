@@ -31,5 +31,5 @@ connected
 
 write ${client10k}
 
-read  ${client10k}
+read ${client10k}
 
