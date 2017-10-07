@@ -32,7 +32,7 @@ public class ClientIT
     private final K3poRule k3po = new K3poRule()
         .addScriptRoot("scripts", "org/reaktivity/specification/nukleus/tls/streams");
 
-    private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
+    private final TestRule timeout = new DisableOnDebug(new Timeout(10, SECONDS));
 
     @Rule
     public final TestRule chain = outerRule(k3po).around(timeout);

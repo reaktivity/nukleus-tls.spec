@@ -28,4 +28,7 @@ read nukleus:begin.ext [0x09] "localhost"
 
 connected
 
+write flush
+
 read aborted
+
