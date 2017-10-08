@@ -32,7 +32,7 @@ public class ClientIT
     private final K3poRule k3po = new K3poRule()
         .addScriptRoot("scripts", "org/reaktivity/specification/nukleus/tls/streams");
 
-    private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
+    private final TestRule timeout = new DisableOnDebug(new Timeout(10, SECONDS));
 
     @Rule
     public final TestRule chain = outerRule(k3po).around(timeout);
@@ -94,9 +94,31 @@ public class ClientIT
 
     @Test
     @Specification({
+            "${scripts}/server.sent.write.close.before.correlated/client",
+            "${scripts}/server.sent.write.close.before.correlated/server"})
+    public void shouldReceiveServerSentWriteCloseBeforeCorrelated() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/client.sent.write.close/client",
         "${scripts}/client.sent.write.close/server"})
     public void shouldReceiveClientSentWriteClose() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${scripts}/client.sent.write.close.before.correlated/client",
+            "${scripts}/client.sent.write.close.before.correlated/server"})
+    public void shouldReceiveClientSentWriteCloseBeforeCorrelated() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -116,9 +138,31 @@ public class ClientIT
 
     @Test
     @Specification({
+            "${scripts}/server.sent.write.abort.before.correlated/client",
+            "${scripts}/server.sent.write.abort.before.correlated/server"})
+    public void shouldReceiveServerSentWriteAbortBeforeCorrelated() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/client.sent.write.abort/client",
         "${scripts}/client.sent.write.abort/server"})
     public void shouldReceiveClientSentWriteAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${scripts}/client.sent.write.abort.before.correlated/client",
+            "${scripts}/client.sent.write.abort.before.correlated/server"})
+    public void shouldReceiveClientSentWriteAbortBeforeCorrelated() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -137,11 +181,34 @@ public class ClientIT
         k3po.finish();
     }
 
+    @Ignore("DATA vs RESET read order not yet guaranteed to match write order")
+    @Test
+    @Specification({
+            "${scripts}/server.sent.read.abort.before.correlated/client",
+            "${scripts}/server.sent.read.abort.before.correlated/server"})
+    public void shouldReceiveServerSentReadAbortBeforeCorrelated() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
     @Test
     @Specification({
         "${scripts}/client.sent.read.abort/client",
         "${scripts}/client.sent.read.abort/server"})
     public void shouldReceiveClientSentReadAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${scripts}/client.sent.read.abort.before.correlated/client",
+            "${scripts}/client.sent.read.abort.before.correlated/server"})
+    public void shouldReceiveClientSentReadAbortBeforeCorrelated() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
