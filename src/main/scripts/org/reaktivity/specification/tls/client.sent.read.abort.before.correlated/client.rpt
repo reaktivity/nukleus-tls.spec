@@ -16,8 +16,6 @@
 
 property newServerAcceptRef  ${nukleus:newRouteRef()} # external
 
-property client1000k ${tls:randomBytes(1024000)}
-
 connect await ROUTED_SERVER
         "tls://localhost:9090"
   option tls:transport "nukleus://tls/streams/source"
@@ -26,10 +24,6 @@ connect await ROUTED_SERVER
   option nukleus:route ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
-  option nukleus:throttle "message"
 connected
 
-write ${client1000k}
-
-read ${client1000k}
-
+read abort

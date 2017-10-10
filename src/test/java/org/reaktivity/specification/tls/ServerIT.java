@@ -97,6 +97,17 @@ public class ServerIT
 
     @Test
     @Specification({
+            "${scripts}/client.sent.write.close.before.correlated/client",
+            "${scripts}/client.sent.write.close.before.correlated/server"})
+    public void shouldReceiveClientSentWriteCloseBeforeCorrelated() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/client.sent.write.close/client",
         "${scripts}/client.sent.write.close/server"})
     public void shouldReceiveClientSentWriteClose() throws Exception
@@ -119,6 +130,17 @@ public class ServerIT
 
     @Test
     @Specification({
+            "${scripts}/client.sent.write.abort.before.correlated/client",
+            "${scripts}/client.sent.write.abort.before.correlated/server"})
+    public void shouldReceiveClientSentWriteAbortBeforeCorrelated() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/client.sent.write.abort/client",
         "${scripts}/client.sent.write.abort/server"})
     public void shouldReceiveClientSentWriteAbort() throws Exception
@@ -133,6 +155,17 @@ public class ServerIT
         "${scripts}/server.sent.read.abort/client",
         "${scripts}/server.sent.read.abort/server"})
     public void shouldReceiveServerSentReadAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${scripts}/client.sent.read.abort.before.correlated/client",
+            "${scripts}/client.sent.read.abort.before.correlated/server"})
+    public void shouldReceiveClientSentReadAbortBeforeCorrelated() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
