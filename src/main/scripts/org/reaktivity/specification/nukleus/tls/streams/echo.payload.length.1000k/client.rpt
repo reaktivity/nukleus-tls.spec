@@ -21,7 +21,8 @@ property client1000k ${tls:randomBytes(1024000)}
 connect await ROUTED_CLIENT
         "nukleus://tls/streams/source"
   option nukleus:route ${newClientAcceptRef}
-  option nukleus:window 65536
+  option nukleus:window 8192
+  option nukleus:padding 1024
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"
 
