@@ -23,6 +23,7 @@ import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
+import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
@@ -50,10 +51,36 @@ public class ServerIT
 
     @Test
     @Specification({
+        "${scripts}/connection.established/client",
+        "${scripts}/connection.established/server"})
+    @ScriptProperty("authorization 0x0001_000000000000L")
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void shouldEstablishConnectionWithAuthorization() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength10k() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/echo.payload.length.10k/client",
+        "${scripts}/echo.payload.length.10k/server"})
+    @ScriptProperty("authorization 0x0001_000000000000L")
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void shouldEchoPayloadLength10kWithAuthorization() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
