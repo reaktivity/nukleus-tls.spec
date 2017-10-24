@@ -50,6 +50,17 @@ public class ClientIT
 
     @Test
     @Specification({
+            "${scripts}/connection.established.with.alpn/client",
+            "${scripts}/connection.established.with.alpn/server"})
+    public void shouldEstablishConnectionWithAlpn() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
     public void shouldEchoPayloadLength10k() throws Exception

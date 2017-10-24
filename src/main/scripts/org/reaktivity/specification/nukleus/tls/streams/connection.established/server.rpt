@@ -25,5 +25,6 @@ accept ${clientAccept}
 accepted
 
 read nukleus:begin.ext [0x09] "localhost"
+read nukleus:begin.ext [0x08] "protocol"
 
 connected

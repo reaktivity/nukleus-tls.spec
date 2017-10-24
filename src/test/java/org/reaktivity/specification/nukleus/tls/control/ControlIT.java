@@ -47,10 +47,30 @@ public class ControlIT
 
     @Test
     @Specification({
+            "route/server.alpn/nukleus",
+            "route/server.alpn/controller"
+    })
+    public void shouldRouteServerWithAlpn() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "route/client/nukleus",
         "route/client/controller"
     })
     public void shouldRouteClient() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "route/client.alpn/nukleus",
+            "route/client.alpn/controller"
+    })
+    public void shouldRouteClientWithAlpn() throws Exception
     {
         k3po.finish();
     }

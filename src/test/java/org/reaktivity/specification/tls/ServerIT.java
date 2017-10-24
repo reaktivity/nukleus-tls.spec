@@ -50,6 +50,18 @@ public class ServerIT
 
     @Test
     @Specification({
+            "${scripts}/connection.established.with.alpn/client",
+            "${scripts}/connection.established.with.alpn/server"})
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void shouldEstablishConnectionWithAlpn() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")

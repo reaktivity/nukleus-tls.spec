@@ -35,6 +35,7 @@ write [0x06] "target"
 write ${newClientConnectRef}
 write 0L
 write [0x09] "localhost"
+write [0x08] "protocol"
 write flush
 
 read 0x40000001
