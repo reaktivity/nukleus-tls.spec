@@ -20,6 +20,7 @@ scope tls
         struct TlsRouteEx
         {
             string hostname;
+            string applicationProtocol;
         }
     }
 
@@ -28,6 +29,7 @@ scope tls
         struct TlsBeginEx
         {
             string hostname;
+            string applicationProtocol;
         }
     }
 }

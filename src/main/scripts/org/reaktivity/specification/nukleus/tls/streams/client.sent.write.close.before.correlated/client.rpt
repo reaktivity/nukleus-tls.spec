@@ -23,6 +23,7 @@ connect await ROUTED_CLIENT
   option nukleus:transmission "duplex"
 
 write nukleus:begin.ext [0x09] "localhost"
+write nukleus:begin.ext [0x08] "protocol"
 
 connected
 
