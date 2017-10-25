@@ -37,7 +37,7 @@ write [0x06] "target"
 write ${newServerConnectRef}
 write ${routeAuthorization}
 write [0x09] "localhost"
-write [0x08] "protocol"
+write [0xff]
 write flush
 
 read 0x40000001
