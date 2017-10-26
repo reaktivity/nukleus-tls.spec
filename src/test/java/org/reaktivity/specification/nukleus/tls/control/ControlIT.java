@@ -57,6 +57,16 @@ public class ControlIT
 
     @Test
     @Specification({
+            "route/server.alpn.default/nukleus",
+            "route/server.alpn.default/controller"
+    })
+    public void shouldRouteServerWithAlpnDefault() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "route/client/nukleus",
         "route/client/controller"
     })
@@ -71,6 +81,16 @@ public class ControlIT
             "route/client.alpn/controller"
     })
     public void shouldRouteClientWithAlpn() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "route/client.alpn.default/nukleus",
+            "route/client.alpn.default/controller"
+    })
+    public void shouldRouteClientWithAlpnDefault() throws Exception
     {
         k3po.finish();
     }

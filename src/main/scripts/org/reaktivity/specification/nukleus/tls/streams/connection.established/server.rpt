@@ -18,6 +18,8 @@ property newClientAcceptRef  ${nukleus:newRouteRef()} # external
 
 property clientAccept "nukleus://tls/streams/source"
 
+property authorization 0L
+
 accept ${clientAccept}
   option nukleus:route  ${newClientAcceptRef}
   option nukleus:authorization ${authorization}
