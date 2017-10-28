@@ -26,6 +26,9 @@ connect "agrona://stream/bidirectional"
 
 connected
 
+#
+# route with ALPN "protocol2"
+#
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
 write [0x01]
@@ -35,7 +38,26 @@ write [0x06] "target"
 write ${newClientConnectRef}
 write 0L
 write [0x09] "localhost"
-write [0xff]          # null application protocol
+write [0x09] "protocol2"
+write flush
+
+read 0x40000001
+read ${controlRG010101C.correlationId()}
+read (long:newClientAcceptRef)
+
+#
+# route with no ALPN protocol
+#
+write 0x00000001
+write ${controlRG010101C.nextCorrelationId()}
+write [0x01]
+write [0x06] "source"
+write ${newClientAcceptRef}
+write [0x06] "target"
+write ${newClientConnectRef}
+write 0L
+write [0x09] "localhost"
+write [0xff]
 write flush
 
 read 0x40000001
