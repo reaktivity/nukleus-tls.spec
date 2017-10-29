@@ -16,21 +16,15 @@
 
 property newClientAcceptRef  ${nukleus:newRouteRef()} # external
 
-property client1000k ${tls:randomBytes(1024000)}
+property clientAccept "nukleus://tls/streams/source"
 
-connect await ROUTED_CLIENT
-        "nukleus://tls/streams/source"
-  option nukleus:route ${newClientAcceptRef}
+accept ${clientAccept}
+  option nukleus:route  ${newClientAcceptRef}
   option nukleus:window 65536
-  option nukleus:padding 1024
   option nukleus:transmission "duplex"
-  option nukleus:throttle "message"
+accepted
 
-write nukleus:begin.ext [0x09] "localhost"
-write nukleus:begin.ext [0xff]          # null application protocol
+read nukleus:begin.ext [0x09] "localhost"
+read nukleus:begin.ext [0x09] "protocol2"
 
 connected
-
-write ${client1000k}
-
-read ${client1000k}

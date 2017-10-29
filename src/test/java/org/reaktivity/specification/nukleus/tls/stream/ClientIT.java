@@ -51,6 +51,17 @@ public class ClientIT
 
     @Test
     @Specification({
+        "${scripts}/connection.established.with.alpn/client",
+        "${scripts}/connection.established.with.alpn/server"})
+    public void shouldEstablishConnectionWithAlpn() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
