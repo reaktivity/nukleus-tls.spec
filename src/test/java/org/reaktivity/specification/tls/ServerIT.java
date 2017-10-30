@@ -63,6 +63,18 @@ public class ServerIT
 
     @Test
     @Specification({
+            "${scripts}/connection.established.no.hostname.no.alpn/client",
+            "${scripts}/connection.established.no.hostname.no.alpn/server"})
+    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
+    public void shouldEstablishConnectionWithNoHostnameNoAlpn() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
