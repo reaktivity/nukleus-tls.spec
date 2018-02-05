@@ -23,6 +23,5 @@ connect await ROUTED_SERVER
   option tls:trustStorePassword "generated"
   option tls:applicationProtocols "protocol1,protocol3"
   option nukleus:route ${newServerAcceptRef}
-  option nukleus:window 65536
   option nukleus:transmission "duplex"
 connected
