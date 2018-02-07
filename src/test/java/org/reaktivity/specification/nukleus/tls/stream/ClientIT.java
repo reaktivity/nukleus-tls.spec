@@ -110,7 +110,6 @@ public class ClientIT
     }
 
     @Test
-    @Ignore
     @Specification({
         "${scripts}/echo.payload.length.100k/client",
         "${scripts}/echo.payload.length.100k/server"})
@@ -122,7 +121,6 @@ public class ClientIT
     }
 
     @Test
-    @Ignore
     @Specification({
         "${scripts}/echo.payload.length.1000k/client",
         "${scripts}/echo.payload.length.1000k/server"})

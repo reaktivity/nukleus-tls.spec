@@ -18,7 +18,6 @@ package org.reaktivity.specification.tls;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -119,7 +118,6 @@ public class ServerIT
     @Specification({
         "${scripts}/echo.payload.length.100k/client",
         "${scripts}/echo.payload.length.100k/server"})
-    @Ignore
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength100k() throws Exception
     {
@@ -129,7 +127,6 @@ public class ServerIT
     }
 
     @Test
-    @Ignore
     @Specification({
         "${scripts}/echo.payload.length.1000k/client",
         "${scripts}/echo.payload.length.1000k/server"})
