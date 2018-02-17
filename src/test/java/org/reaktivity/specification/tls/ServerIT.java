@@ -35,10 +35,10 @@ public class ServerIT
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(10, SECONDS));
 
-    private final NukleusRule nukleusRule = new NukleusRule().directory("target/nukleus-itests");
+    private final NukleusRule nukleus = new NukleusRule().directory("target/nukleus-itests");
 
     @Rule
-    public final TestRule chain = outerRule(nukleusRule).around(k3po).around(timeout);
+    public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
 
     @Test
     @Specification({
