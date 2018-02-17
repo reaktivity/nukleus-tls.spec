@@ -24,7 +24,6 @@ accept "tls://localhost:9090"
   option tls:keyStorePassword "generated"
   option tls:applicationProtocols "protocol2"
   option nukleus:route  ${newServerAcceptRef}
-  option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted
 connected

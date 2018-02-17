@@ -24,10 +24,7 @@ connect await ROUTED_SERVER
   option tls:trustStoreFile "src/test/democa/cacerts"
   option tls:trustStorePassword "generated"
   option nukleus:route ${newServerAcceptRef}
-  option nukleus:window 65536
-  option nukleus:padding 1024
   option nukleus:transmission "duplex"
-  option nukleus:throttle "message"
 connected
 
 write ${client1000k}
