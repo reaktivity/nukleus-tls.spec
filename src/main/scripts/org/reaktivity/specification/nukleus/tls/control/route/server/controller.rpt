@@ -36,6 +36,7 @@ write 0L
 write [0x06] "target"
 write ${newServerConnectRef}
 write ${routeAuthorization}
+write [0xff]          # default store
 write [0x09] "localhost"
 write [0xff]          # null application protocol
 write flush
