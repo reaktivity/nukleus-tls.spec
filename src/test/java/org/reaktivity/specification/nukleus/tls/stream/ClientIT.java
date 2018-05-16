@@ -51,6 +51,17 @@ public class ClientIT
 
     @Test
     @Specification({
+            "${scripts}/connection.established.with.extension.data/client",
+            "${scripts}/connection.established.with.extension.data/server"})
+    public void shouldEstablishConnectionWithExtensionData() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${scripts}/connection.established.no.hostname.no.alpn/client",
             "${scripts}/connection.established.no.hostname.no.alpn/server"})
     public void shouldEstablishConnectionWithNoHostnameNoAlpn() throws Exception
