@@ -33,7 +33,7 @@ read (long:serverAcceptRefRG010001N)
 read [0x06] "target"
 read (long:serverConnectRefRG010001N)
 read [0..8] # authorization
-read [0xff]          # default keystore
+read [0x06] "server"         # server store
 read [0x09] "localhost"
 read [0xff]          # null application protocol
 

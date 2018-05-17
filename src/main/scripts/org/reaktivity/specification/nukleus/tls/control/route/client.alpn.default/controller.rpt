@@ -37,7 +37,7 @@ write 0L
 write [0x06] "target"
 write ${newClientConnectRef}
 write 0L
-write [0xff]          # default store
+write [0x06] "client"         # client store
 write [0x09] "localhost"
 write [0x09] "protocol2"
 write flush
@@ -57,7 +57,7 @@ write ${newClientAcceptRef}
 write [0x06] "target"
 write ${newClientConnectRef}
 write 0L
-write [0xff]          # default store
+write [0x06] "client"         # client store
 write [0x09] "localhost"
 write [0xff]
 write flush
