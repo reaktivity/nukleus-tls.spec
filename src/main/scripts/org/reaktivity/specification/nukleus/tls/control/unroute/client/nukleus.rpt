@@ -33,9 +33,9 @@ read (long:clientAcceptRefUR020101N)
 read [0x06] "target"
 read (long:clientConnectRefRG010101N)
 read [0..8] # authorization
-read [0x06] "client"         # client store
+read [0x06] "client"         # client scope
 read [0x09] "localhost"
-read [0xff]          # null application protocol
+read [0xff]                  # null application protocol
 
 write 0x40000002
 write ${correlationIdUR020101N}
