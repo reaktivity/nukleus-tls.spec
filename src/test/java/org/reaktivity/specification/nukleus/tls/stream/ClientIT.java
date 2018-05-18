@@ -107,6 +107,17 @@ public class ClientIT
 
     @Test
     @Specification({
+            "${scripts}/client.auth/client",
+            "${scripts}/client.auth/server"})
+    public void shouldEstablishConnectionWithClientAuth() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
