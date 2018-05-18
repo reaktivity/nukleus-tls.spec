@@ -47,8 +47,8 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/server.default.scope/nukleus",
-        "route/server.default.scope/controller"
+        "route/server.default.store/nukleus",
+        "route/server.default.store/controller"
     })
     public void shouldRouteServerDefaultScope() throws Exception
     {
@@ -87,8 +87,8 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/client.default.scope/nukleus",
-        "route/client.default.scope/controller"
+        "route/client.default.store/nukleus",
+        "route/client.default.store/controller"
     })
     public void shouldRouteClientDefaultScope() throws Exception
     {

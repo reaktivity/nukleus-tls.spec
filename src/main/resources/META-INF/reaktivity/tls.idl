@@ -19,7 +19,7 @@ scope tls
     {
         struct TlsRouteEx
         {
-            string scopeId;
+            string store;
             string hostname;
             string applicationProtocol;
         }
