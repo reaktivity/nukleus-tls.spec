@@ -34,6 +34,7 @@ read 0L
 read [0x06] "target"
 read (long:serverConnectRefRG010001N)
 read [0..8] # authorization
+read [0x06] "server"         # server store
 read [0x09] "localhost"
 read [0x09] "protocol2"
 
@@ -50,6 +51,7 @@ read ${sourceRef}
 read [0x06] "target"
 read (long:serverConnectRefRG010001N)
 read [0..8] # authorization
+read [0x06] "server"         # server store
 read [0x09] "localhost"
 read [0xff]
 

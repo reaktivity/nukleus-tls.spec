@@ -47,6 +47,16 @@ public class ControlIT
 
     @Test
     @Specification({
+        "route/server.default.store/nukleus",
+        "route/server.default.store/controller"
+    })
+    public void shouldRouteServerDefaultScope() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "route/server.alpn/nukleus",
             "route/server.alpn/controller"
     })
@@ -71,6 +81,16 @@ public class ControlIT
         "route/client/controller"
     })
     public void shouldRouteClient() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route/client.default.store/nukleus",
+        "route/client.default.store/controller"
+    })
+    public void shouldRouteClientDefaultScope() throws Exception
     {
         k3po.finish();
     }
