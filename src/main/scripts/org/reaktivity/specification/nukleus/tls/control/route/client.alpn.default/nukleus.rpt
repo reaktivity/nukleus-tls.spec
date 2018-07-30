@@ -41,6 +41,7 @@ read [0x09] "protocol2"
 write 0x40000001
 write ${correlationIdRG010101N}
 write ${sourceRef}
+write ${clientConnectRefRG010101N}
 write flush
 
 read 0x00000001
@@ -58,6 +59,7 @@ read [0xff]
 write 0x40000001
 write ${correlationIdRG010101N}
 write ${nuklei:newReferenceId()}
+write ${clientConnectRefRG010101N}
 write flush
 
 close
