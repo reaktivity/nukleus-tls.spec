@@ -18,7 +18,6 @@ package org.reaktivity.specification.nukleus.tls.stream;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -238,7 +237,6 @@ public class ClientIT
         k3po.finish();
     }
 
-    @Ignore("DATA vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "${scripts}/server.sent.read.abort/client",
@@ -250,7 +248,6 @@ public class ClientIT
         k3po.finish();
     }
 
-    @Ignore("DATA vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
             "${scripts}/server.sent.read.abort.before.correlated/client",

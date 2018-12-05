@@ -21,7 +21,7 @@ property clientAccept "nukleus://tls/streams/source"
 accept ${clientAccept}
   option nukleus:route  ${newClientAcceptRef}
   option nukleus:window 65536
-  option nukleus:transmission "half-duplex"
+  option nukleus:transmission "simplex"
 accepted
 
 read nukleus:begin.ext [0x09] "localhost"
