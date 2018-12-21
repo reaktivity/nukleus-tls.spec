@@ -14,12 +14,9 @@
 # under the License.
 #
 
-property newClientAcceptRef  ${nukleus:newRouteRef()} # external
-
-property clientAccept "nukleus://tls/streams/source"
+property clientAccept "nukleus://streams/tls#0"
 
 accept ${clientAccept}
-  option nukleus:route  ${newClientAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"

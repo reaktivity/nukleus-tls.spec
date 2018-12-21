@@ -26,20 +26,18 @@ connected
 
 read 0x00000001
 read (long:correlationIdRG010101N)
+read ${core:string("tls")}
 read [0x01]
-read [0x06] "source"
-read 0L
-read [0x06] "target"
-read (long:clientConnectRefRG010101N)
 read [0..8] # authorization
-read [0x06] "client"         # client store
-read [0x09] "localhost"
-read [0x09] "protocol2"
+read ${core:string("tls#0")}
+read ${core:string("target#0")}
+read ${core:string("client")}      # client store
+read ${core:string("localhost")}
+read ${core:string("protocol2")}
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nuklei:newReferenceId()}
-write ${clientConnectRefRG010101N}
+write ${nukleus:newClientRouteId("tls#0", "target#0")}
 write flush
 
 close

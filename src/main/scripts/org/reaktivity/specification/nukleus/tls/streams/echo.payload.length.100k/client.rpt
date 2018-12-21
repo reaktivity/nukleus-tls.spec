@@ -14,13 +14,10 @@
 # under the License.
 #
 
-property newClientAcceptRef  ${nukleus:newRouteRef()} # external
-
 property client100k ${tls:randomBytes(102400)}
 
 connect await ROUTED_CLIENT
-        "nukleus://tls/streams/source"
-  option nukleus:route ${newClientAcceptRef}
+        "nukleus://streams/tls#0"
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"
