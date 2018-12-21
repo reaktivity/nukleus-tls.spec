@@ -14,8 +14,6 @@
 # under the License.
 #
 
-property newClientConnectRef ${nuklei:newReferenceId()} # external scope
-
 property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
 property controlRG010101C ${nukleiRG010101C.control("tls")}
@@ -31,42 +29,38 @@ connected
 #
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
+write ${core:string("tls")}
 write [0x01]
-write [0x06] "source"
 write 0L
-write [0x06] "target"
-write ${newClientConnectRef}
-write 0L
-write [0x06] "client"         # client store
-write [0x09] "localhost"
-write [0x09] "protocol2"
+write ${core:string("tls#0")}
+write ${core:string("target#0")}
+write ${core:string("client")}          # client store
+write ${core:string("localhost")}
+write ${core:string("protocol2")}
 write flush
 
 read 0x40000001
 read ${controlRG010101C.correlationId()}
-read (long:newClientAcceptRef)
-read ${newClientConnectRef}
+read (long:newClientRouteId)
 
 #
 # route with no ALPN protocol
 #
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
+write ${core:string("tls")}
 write [0x01]
-write [0x06] "source"
-write ${newClientAcceptRef}
-write [0x06] "target"
-write ${newClientConnectRef}
 write 0L
-write [0x06] "client"         # client store
-write [0x09] "localhost"
-write [0xff]
+write ${core:string("tls#0")}
+write ${core:string("target#0")}
+write ${core:string("client")}          # client store
+write ${core:string("localhost")}
+write [0xff]                            # null application protocol
 write flush
 
 read 0x40000001
 read ${controlRG010101C.correlationId()}
-read (long:newClientAcceptRef)
-read ${newClientConnectRef}
+read (long:newClientRouteId)
 
 read notify ROUTED_CLIENT
 

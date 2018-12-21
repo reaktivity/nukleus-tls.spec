@@ -14,16 +14,13 @@
 # under the License.
 #
 
-property newServerAcceptRef  ${nukleus:newRouteRef()} # external
-
-property serverAccept "nukleus://tls/streams/source"
+property serverAccept "nukleus://streams/tls#0"
 
 accept "tls://localhost:9090"
   option tls:transport ${serverAccept}
   option tls:keyStoreFile "src/test/democa/localhost"
   option tls:keyStorePassword "generated"
   option tls:applicationProtocols "protocol2"
-  option nukleus:route  ${newServerAcceptRef}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 accepted

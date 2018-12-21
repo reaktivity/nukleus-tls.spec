@@ -14,10 +14,7 @@
 # under the License.
 #
 
-property newServerAcceptRef  ${nukleus:newRouteRef()} # external
-
-accept "nukleus://target/streams/tls"
-  option nukleus:route  ${newServerAcceptRef}
+accept "nukleus://streams/target#0"
   option nukleus:window 65536
   option nukleus:transmission "half-duplex"
 accepted

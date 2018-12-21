@@ -27,15 +27,8 @@ connected
 
 read 0x00000002
 read (long:correlationIdUR020001N)
-read [0x00]
-read [0x06] "source"
-read (long:serverAcceptRefRG010001N)
-read [0x06] "target"
-read (long:serverConnectRefRG010001N)
-read [0..8] # authorization
-read [0x06] "server"         # server store
-read [0x09] "localhost"
-read [0xff]                  # null application protocol
+read ${core:string("tls")}
+read [0..8] # routeId
 
 write 0x40000002
 write ${correlationIdUR020001N}
