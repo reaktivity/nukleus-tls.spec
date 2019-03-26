@@ -63,6 +63,17 @@ public class ServerIT
 
     @Test
     @Specification({
+        "${scripts}/connection.not.established.with.wrong.alpn/client",
+        "${scripts}/connection.not.established.with.wrong.alpn/server"})
+    public void shouldRejectConnectionWithWrongAlpn() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "${scripts}/connection.established.no.hostname.no.alpn/client",
             "${scripts}/connection.established.no.hostname.no.alpn/server"})
     //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
