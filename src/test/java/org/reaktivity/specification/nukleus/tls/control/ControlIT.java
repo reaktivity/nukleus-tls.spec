@@ -138,4 +138,16 @@ public class ControlIT
         k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "resolve/one.realm/nukleus",
+        "resolve/one.realm/controller"
+    })
+    public void shouldResolve() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("RESOLVED");
+        k3po.finish();
+    }
 }
