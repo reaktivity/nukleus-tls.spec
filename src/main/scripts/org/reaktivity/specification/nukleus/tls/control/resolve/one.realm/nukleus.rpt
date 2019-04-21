@@ -26,7 +26,9 @@ connected
 
 read 0x00000011
 read (long:correlationIdRG010101N)
+read ${core:string("tls")}
 read [0x14] "server.want.auth:foo"
+read 0
 
 write 0x40000011
 write ${correlationIdRG010101N}

@@ -26,7 +26,9 @@ connected
 
 write 0x00000011
 write ${controlRG010101C.nextCorrelationId()}
+write ${core:string("tls")}
 write [0x14] "server.want.auth:foo"
+write 0
 write flush
 
 read 0x40000011
