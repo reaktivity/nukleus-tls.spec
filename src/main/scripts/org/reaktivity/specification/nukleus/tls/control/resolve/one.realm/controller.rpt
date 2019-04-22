@@ -27,13 +27,13 @@ connected
 write 0x00000011
 write ${controlRG010101C.nextCorrelationId()}
 write ${core:string("tls")}
-write [0x14] "server.want.auth:foo"
+write [0x4f] "server.want.auth:C=US,ST=California,O=Reaktivity,OU=Development,CN=ClientDemoCA"
 write 0
 write flush
 
 read 0x40000011
 read ${controlRG010101C.correlationId()}
-read 0x0100000000000001L
+read [0..8]    # authorization
 
 read notify RESOLVED
 
