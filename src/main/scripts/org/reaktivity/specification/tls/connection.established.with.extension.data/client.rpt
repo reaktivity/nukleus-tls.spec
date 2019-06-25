@@ -19,7 +19,7 @@ connect await ROUTED_SERVER
   option nukleus:window 65536
   option nukleus:transmission "half-duplex"
 
-write nukleus:begin.ext "extension"
+write nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
 
 connected
 

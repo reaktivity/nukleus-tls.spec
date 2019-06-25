@@ -33,9 +33,11 @@ write [0x00]
 write 0L
 write ${core:string("tls#0")}
 write ${core:string("target#0")}
-write [0xff]                            # default store
-write ${core:string("localhost")}
-write [0xff]                            # null application protocol
+write ${tls:routeEx()
+           .store(null)
+           .hostname("localhost")
+           .protocol(null)
+           .build()}
 write flush
 
 read 0x40000001
