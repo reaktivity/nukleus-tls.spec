@@ -19,7 +19,10 @@ connect await ROUTED_CLIENT
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-write nukleus:begin.ext [0x09] "localhost"
-write nukleus:begin.ext [0x09] "protocol2"
+write nukleus:begin.ext ${tls:beginEx()
+                             .typeId(nukleus:id("tls"))
+                             .hostname("localhost")
+                             .protocol("protocol2")
+                             .build()}
 
 connected

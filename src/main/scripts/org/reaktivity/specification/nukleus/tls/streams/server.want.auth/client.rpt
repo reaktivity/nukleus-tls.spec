@@ -27,8 +27,11 @@ connect await ROUTED_CLIENT
   option tls:keyStoreFile "src/test/democa/stores/server.want.auth/localhost"
   option tls:keyStorePassword "generated"
 
-write nukleus:begin.ext [0x09] "localhost"
-write nukleus:begin.ext [0xff]          # null application protocol
+write nukleus:begin.ext ${tls:beginEx()
+                             .typeId(nukleus:id("tls"))
+                             .hostname("localhost")
+                             .protocol(null)
+                             .build()}
 
 connected
 

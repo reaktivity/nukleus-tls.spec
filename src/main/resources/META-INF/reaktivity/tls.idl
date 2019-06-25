@@ -21,16 +21,16 @@ scope tls
         {
             string store;
             string hostname;
-            string applicationProtocol;
+            string protocol;
         }
     }
 
     scope stream
     {
-        struct TlsBeginEx
+        struct TlsBeginEx extends core::stream::Extension
         {
             string hostname;
-            string applicationProtocol;
+            string protocol;
         }
     }
 }

@@ -19,7 +19,7 @@ accept "nukleus://streams/target#0"
   option nukleus:transmission "half-duplex"
 accepted
 
-read nukleus:begin.ext "extension"
+read nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
 
 connected
 

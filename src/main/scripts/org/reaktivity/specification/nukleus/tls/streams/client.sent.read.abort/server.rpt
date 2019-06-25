@@ -21,8 +21,11 @@ accept ${clientAccept}
   option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext [0x09] "localhost"
-read nukleus:begin.ext [0xff]          # null application protocol
+read nukleus:begin.ext ${tls:beginEx()
+                            .typeId(nukleus:id("tls"))
+                            .hostname("localhost")
+                            .protocol(null)
+                            .build()}
 
 connected
 
