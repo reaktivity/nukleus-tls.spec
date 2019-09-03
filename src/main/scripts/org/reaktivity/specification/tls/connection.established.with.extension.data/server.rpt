@@ -16,10 +16,11 @@
 
 accept "nukleus://streams/target#0"
   option nukleus:window 65536
-  option nukleus:transmission "half-duplex"
+  option nukleus:transmission "simplex"
 accepted
 
 read nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
 
 connected
 
+read aborted

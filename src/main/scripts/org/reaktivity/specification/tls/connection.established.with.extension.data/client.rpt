@@ -17,9 +17,10 @@
 connect await ROUTED_SERVER
         "nukleus://streams/target#0"
   option nukleus:window 65536
-  option nukleus:transmission "half-duplex"
+  option nukleus:transmission "simplex"
 
 write nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
 
 connected
 
+write abort
