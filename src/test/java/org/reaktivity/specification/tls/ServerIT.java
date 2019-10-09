@@ -182,6 +182,17 @@ public class ServerIT
 
     @Test
     @Specification({
+            "${scripts}/client.sent.write.close.before.handshake/client",
+            "${scripts}/client.sent.write.close.before.handshake/server"})
+    public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/client.sent.write.close/client",
         "${scripts}/client.sent.write.close/server"})
     public void shouldReceiveClientSentWriteClose() throws Exception
