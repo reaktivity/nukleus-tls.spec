@@ -20,7 +20,7 @@ accept "tls://localhost:9090"
   option tls:transport ${serverAccept}
   option tls:keyStoreFile "src/test/democa/localhost"
   option tls:keyStorePassword "generated"
-  option nukleus:window 65536
+  option nukleus:window 81920
   option nukleus:padding 1024
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"

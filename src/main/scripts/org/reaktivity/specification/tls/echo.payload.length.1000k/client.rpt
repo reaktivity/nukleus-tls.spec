@@ -21,7 +21,7 @@ connect await ROUTED_SERVER
   option tls:transport "nukleus://streams/tls#0"
   option tls:trustStoreFile "src/test/democa/cacerts"
   option tls:trustStorePassword "generated"
-  option nukleus:window 65536
+  option nukleus:window 81920
   option nukleus:padding 1024
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"
