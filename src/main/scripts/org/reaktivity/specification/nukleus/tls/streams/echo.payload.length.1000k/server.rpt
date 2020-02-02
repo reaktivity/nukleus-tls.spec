@@ -18,7 +18,7 @@ property clientAccept "nukleus://streams/tls#0"
 
 accept ${clientAccept}
   option nukleus:window 81920
-  option nukleus:padding 1024
+  option nukleus:padding 0
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"
 accepted
