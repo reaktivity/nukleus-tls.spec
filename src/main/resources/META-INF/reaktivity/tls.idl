@@ -19,9 +19,9 @@ scope tls
     {
         struct TlsRouteEx
         {
-            string store;
-            string hostname;
-            string protocol;
+            string8 store;
+            string8 hostname;
+            string8 protocol;
         }
     }
 
@@ -29,8 +29,8 @@ scope tls
     {
         struct TlsBeginEx extends core::stream::Extension
         {
-            string hostname;
-            string protocol;
+            string8 hostname;
+            string8 protocol;
         }
     }
 }
