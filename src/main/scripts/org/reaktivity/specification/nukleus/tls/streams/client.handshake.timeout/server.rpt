@@ -22,12 +22,5 @@ accept ${clientAccept}
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
-accepted
-
-read nukleus:begin.ext ${tls:beginEx()
-                            .typeId(nukleus:id("tls"))
-                            .hostname("localhost")
-                            .protocol(null)
-                            .build()}
 
 rejected
