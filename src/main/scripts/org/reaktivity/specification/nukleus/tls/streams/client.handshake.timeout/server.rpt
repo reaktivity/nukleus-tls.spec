@@ -21,7 +21,7 @@ property authorization 0L
 accept ${clientAccept}
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
-  option nukleus:transmission "simplex"
+  option nukleus:transmission "duplex"
 accepted
 
 read nukleus:begin.ext ${tls:beginEx()
@@ -29,3 +29,5 @@ read nukleus:begin.ext ${tls:beginEx()
                             .hostname("localhost")
                             .protocol(null)
                             .build()}
+
+rejected

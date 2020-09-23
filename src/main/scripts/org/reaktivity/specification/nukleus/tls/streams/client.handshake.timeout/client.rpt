@@ -20,10 +20,12 @@ connect await ROUTED_CLIENT
         "nukleus://streams/tls#0"
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
-  option nukleus:transmission "simplex"
+  option nukleus:transmission "duplex"
 
 write nukleus:begin.ext ${tls:beginEx()
                              .typeId(nukleus:id("tls"))
                              .hostname("localhost")
                              .protocol(null)
                              .build()}
+
+connect aborted
