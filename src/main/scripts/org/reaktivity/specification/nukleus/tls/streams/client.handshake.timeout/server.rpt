@@ -14,17 +14,13 @@
 # under the License.
 #
 
-connect await ROUTED_SERVER
-        "nukleus://streams/tls#0"
+property clientAccept "nukleus://streams/tls#0"
+
+property authorization 0L
+
+accept ${clientAccept}
+  option nukleus:authorization ${authorization}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-connected
-
-write "Malformed ClientHello"
-
-read [0x15 0x03 0x03 0x00 0x02 0x02 0x50]
-
-read closed
-
-write aborted
+rejected
