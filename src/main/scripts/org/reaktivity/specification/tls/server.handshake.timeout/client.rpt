@@ -21,10 +21,4 @@ connect await ROUTED_SERVER
 
 connected
 
-write "Malformed ClientHello"
-
-read [0x15 0x03 0x03 0x00 0x02 0x02 0x50]
-
-read closed
-
 write aborted

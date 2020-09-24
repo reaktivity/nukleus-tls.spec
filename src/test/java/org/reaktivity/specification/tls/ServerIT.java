@@ -278,4 +278,15 @@ public class ServerIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${scripts}/server.handshake.timeout/client",
+        "${scripts}/server.handshake.timeout/server"})
+    public void shouldTimeoutHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
