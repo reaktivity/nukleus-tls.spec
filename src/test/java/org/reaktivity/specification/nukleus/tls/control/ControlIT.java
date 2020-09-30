@@ -67,6 +67,16 @@ public class ControlIT
 
     @Test
     @Specification({
+        "route/server.alpn.no.hostname/nukleus",
+        "route/server.alpn.no.hostname/controller"
+    })
+    public void shouldRouteServerWithAlpnAndNoHostname() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
             "route/server.alpn.default/nukleus",
             "route/server.alpn.default/controller"
     })
