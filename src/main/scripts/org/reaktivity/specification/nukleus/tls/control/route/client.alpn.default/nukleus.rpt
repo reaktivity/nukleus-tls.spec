@@ -29,8 +29,8 @@ read (long:correlationIdRG010101N)
 read ${core:string("tls")}
 read [0x01]
 read [0..8] # authorization
-read ${core:string("tls#0")}
-read ${core:string("target#0")}
+read ${core:string("app#0")}
+read ${core:string("net#0")}
 read ${tls:routeEx()
           .store("client")
           .hostname("localhost")
@@ -39,7 +39,7 @@ read ${tls:routeEx()
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nukleus:newClientRouteId("tls#0", "target#0")}
+write ${nukleus:newClientRouteId("app#0", "net#0")}
 write flush
 
 read 0x00000001
@@ -47,15 +47,15 @@ read (long:correlationIdRG010101N)
 read ${core:string("tls")}
 read [0x01]
 read [0..8] # authorization
-read ${core:string("tls#0")}
-read ${core:string("target#0")}
+read ${core:string("app#0")}
+read ${core:string("net#0")}
 read ${core:string("client")}      # client store
 read ${core:string("localhost")}
 read [0xff]
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nukleus:newClientRouteId("tls#0", "target#0")}
+write ${nukleus:newClientRouteId("app#0", "net#0")}
 write flush
 
 close

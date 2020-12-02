@@ -32,8 +32,8 @@ write ${controlRG010101C.nextCorrelationId()}
 write ${core:string("tls")}
 write [0x01]
 write 0L
-write ${core:string("tls#0")}
-write ${core:string("target#0")}
+write ${core:string("app#0")}
+write ${core:string("net#0")}
 write ${tls:routeEx()
            .store("client")
            .hostname("localhost")
@@ -53,8 +53,8 @@ write ${controlRG010101C.nextCorrelationId()}
 write ${core:string("tls")}
 write [0x01]
 write 0L
-write ${core:string("tls#0")}
-write ${core:string("target#0")}
+write ${core:string("app#0")}
+write ${core:string("net#0")}
 write ${core:string("client")}          # client store
 write ${core:string("localhost")}
 write [0xff]                            # null application protocol
