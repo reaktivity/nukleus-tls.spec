@@ -14,17 +14,15 @@
 # under the License.
 #
 
-accept "nukleus://streams/app#0"
+connect await ROUTED_CLIENT
+        "nukleus://streams/app#0"
   option nukleus:window 65536
-  option nukleus:transmission "duplex"
-accepted
+  option nukleus:transmission "half-duplex"
 
-read nukleus:begin.ext ${tls:beginEx()
-                            .typeId(nukleus:id("tls"))
-                            .hostname("localhost")
-                            .protocol(null)
-                            .build()}
+write nukleus:begin.ext ${tls:beginEx()
+                             .typeId(nukleus:id("tls"))
+                             .hostname("localhost")
+                             .protocol(null)
+                             .build()}
 
-connected
-
-write abort
+connect aborted
