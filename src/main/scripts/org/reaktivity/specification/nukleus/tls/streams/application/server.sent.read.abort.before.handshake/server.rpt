@@ -14,13 +14,15 @@
 # under the License.
 #
 
-connect await ROUTED_SERVER
-        "tls://localhost:9090"
-  option tls:transport "nukleus://streams/net#0"
-  option tls:trustStoreFile "src/test/democa/cacerts"
-  option tls:trustStorePassword "generated"
+accept "nukleus://streams/app#0"
   option nukleus:window 65536
-  option nukleus:transmission "duplex"
-connected
+  option nukleus:transmission "half-duplex"
 
-read aborted
+rejected
+
+read nukleus:begin.ext ${tls:beginEx()
+                            .typeId(nukleus:id("tls"))
+                            .hostname("localhost")
+                            .protocol(null)
+                            .build()}
+
