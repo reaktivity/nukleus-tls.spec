@@ -173,9 +173,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/server.sent.write.close.before.correlated/client",
-            "${scripts}/server.sent.write.close.before.correlated/server"})
-    public void shouldReceiveServerSentWriteCloseBeforeCorrelated() throws Exception
+        "${scripts}/server.sent.write.close.before.handshake/client",
+        "${scripts}/server.sent.write.close.before.handshake/server"})
+    public void shouldRejectServerSentWriteCloseBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -206,9 +206,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.write.close.before.correlated/client",
-            "${scripts}/client.sent.write.close.before.correlated/server"})
-    public void shouldReceiveClientSentWriteCloseBeforeCorrelated() throws Exception
+        "${scripts}/client.sent.write.close.before.handshake/client",
+        "${scripts}/client.sent.write.close.before.handshake/server"})
+    public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -228,9 +228,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/server.sent.write.abort.before.correlated/client",
-            "${scripts}/server.sent.write.abort.before.correlated/server"})
-    public void shouldReceiveServerSentWriteAbortBeforeCorrelated() throws Exception
+        "${scripts}/server.sent.write.abort.before.handshake/client",
+        "${scripts}/server.sent.write.abort.before.handshake/server"})
+    public void shouldRejectServerSentWriteAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -250,9 +250,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.write.abort.before.correlated/client",
-            "${scripts}/client.sent.write.abort.before.correlated/server"})
-    public void shouldReceiveClientSentWriteAbortBeforeCorrelated() throws Exception
+        "${scripts}/client.sent.write.abort.before.handshake/client",
+        "${scripts}/client.sent.write.abort.before.handshake/server"})
+    public void shouldReceiveClientSentWriteAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -272,9 +272,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/server.sent.read.abort.before.correlated/client",
-            "${scripts}/server.sent.read.abort.before.correlated/server"})
-    public void shouldReceiveServerSentReadAbortBeforeCorrelated() throws Exception
+        "${scripts}/server.sent.read.abort.before.handshake/client",
+        "${scripts}/server.sent.read.abort.before.handshake/server"})
+    public void shouldRejectServerSentReadAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -294,9 +294,9 @@ public class ApplicationIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.read.abort.before.correlated/client",
-            "${scripts}/client.sent.read.abort.before.correlated/server"})
-    public void shouldReceiveClientSentReadAbortBeforeCorrelated() throws Exception
+        "${scripts}/client.sent.read.abort.before.handshake/client",
+        "${scripts}/client.sent.read.abort.before.handshake/server"})
+    public void shouldReceiveClientSentReadAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");

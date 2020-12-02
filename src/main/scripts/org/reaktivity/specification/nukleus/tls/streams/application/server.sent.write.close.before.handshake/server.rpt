@@ -16,15 +16,12 @@
 
 accept "nukleus://streams/app#0"
   option nukleus:window 65536
-  option nukleus:transmission "duplex"
-accepted
+  option nukleus:transmission "half-duplex"
+
+rejected
 
 read nukleus:begin.ext ${tls:beginEx()
                             .typeId(nukleus:id("tls"))
                             .hostname("localhost")
                             .protocol(null)
                             .build()}
-
-connected
-
-write close

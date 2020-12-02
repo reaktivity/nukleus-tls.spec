@@ -42,7 +42,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
@@ -54,7 +53,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/connection.established.with.alpn/client",
         "${scripts}/connection.established.with.alpn/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEstablishConnectionWithAlpn() throws Exception
     {
         k3po.start();
@@ -77,7 +75,6 @@ public class NetworkIT
     @Specification({
             "${scripts}/connection.established.no.hostname.no.alpn/client",
             "${scripts}/connection.established.no.hostname.no.alpn/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEstablishConnectionWithNoHostnameNoAlpn() throws Exception
     {
         k3po.start();
@@ -90,7 +87,6 @@ public class NetworkIT
         "${scripts}/connection.established/client",
         "${scripts}/connection.established/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEstablishConnectionWithAuthorization() throws Exception
     {
         k3po.start();
@@ -102,7 +98,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength10k() throws Exception
     {
         k3po.start();
@@ -114,7 +109,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/client.auth/client",
         "${scripts}/client.auth/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEstablishConnectionWithClientAuth() throws Exception
     {
         k3po.start();
@@ -127,7 +121,6 @@ public class NetworkIT
         "${scripts}/echo.payload.length.10k/client",
         "${scripts}/echo.payload.length.10k/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength10kWithAuthorization() throws Exception
     {
         k3po.start();
@@ -139,7 +132,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/echo.payload.length.100k/client",
         "${scripts}/echo.payload.length.100k/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength100k() throws Exception
     {
         k3po.start();
@@ -151,7 +143,6 @@ public class NetworkIT
     @Specification({
         "${scripts}/echo.payload.length.1000k/client",
         "${scripts}/echo.payload.length.1000k/server"})
-    //@ScriptProperty("clientAccept \"nukleus://target/streams/tls#source\"")
     public void shouldEchoPayloadLength1000k() throws Exception
     {
         k3po.start();
@@ -173,6 +164,17 @@ public class NetworkIT
 
     @Test
     @Specification({
+        "${scripts}/server.sent.write.close.before.handshake/client",
+        "${scripts}/server.sent.write.close.before.handshake/server"})
+    public void shouldReceiveServerSentWriteCloseBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/server.sent.write.close/client",
         "${scripts}/server.sent.write.close/server"})
     public void shouldReceiveServerSentWriteClose() throws Exception
@@ -184,19 +186,8 @@ public class NetworkIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.write.close.before.correlated/client",
-            "${scripts}/client.sent.write.close.before.correlated/server"})
-    public void shouldReceiveClientSentWriteCloseBeforeCorrelated() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-            "${scripts}/client.sent.write.close.before.handshake/client",
-            "${scripts}/client.sent.write.close.before.handshake/server"})
+        "${scripts}/client.sent.write.close.before.handshake/client",
+        "${scripts}/client.sent.write.close.before.handshake/server"})
     public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception
     {
         k3po.start();
@@ -240,9 +231,9 @@ public class NetworkIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.write.abort.before.correlated/client",
-            "${scripts}/client.sent.write.abort.before.correlated/server"})
-    public void shouldReceiveClientSentWriteAbortBeforeCorrelated() throws Exception
+            "${scripts}/client.sent.write.abort.before.handshake/client",
+            "${scripts}/client.sent.write.abort.before.handshake/server"})
+    public void shouldReceiveClientSentWriteAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
@@ -262,6 +253,17 @@ public class NetworkIT
 
     @Test
     @Specification({
+            "${scripts}/server.sent.write.abort.before.handshake/client",
+            "${scripts}/server.sent.write.abort.before.handshake/server"})
+    public void shouldReceiveServerSentWriteAbortBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/server.sent.read.abort/client",
         "${scripts}/server.sent.read.abort/server"})
     public void shouldReceiveServerSentReadAbort() throws Exception
@@ -273,9 +275,20 @@ public class NetworkIT
 
     @Test
     @Specification({
-            "${scripts}/client.sent.read.abort.before.correlated/client",
-            "${scripts}/client.sent.read.abort.before.correlated/server"})
-    public void shouldReceiveClientSentReadAbortBeforeCorrelated() throws Exception
+            "${scripts}/server.sent.read.abort.before.handshake/client",
+            "${scripts}/server.sent.read.abort.before.handshake/server"})
+    public void shouldReceiveServerSentReadAbortBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+            "${scripts}/client.sent.read.abort.before.handshake/client",
+            "${scripts}/client.sent.read.abort.before.handshake/server"})
+    public void shouldReceiveClientSentReadAbortBeforeHandshake() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");
