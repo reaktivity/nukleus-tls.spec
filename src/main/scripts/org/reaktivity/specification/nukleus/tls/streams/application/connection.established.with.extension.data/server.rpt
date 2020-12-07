@@ -20,7 +20,7 @@ accept "nukleus://streams/app#0"
 
 accepted
 
-read nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
+read nukleus:begin.ext ${nukleus:id("not-proxy")} "extension"
 
 connected
 

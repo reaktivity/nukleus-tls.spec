@@ -19,7 +19,7 @@ accept "nukleus://streams/net#0"
   option nukleus:transmission "simplex"
 accepted
 
-read nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
+read nukleus:begin.ext ${nukleus:id("not-proxy")} "extension"
 
 connected
 

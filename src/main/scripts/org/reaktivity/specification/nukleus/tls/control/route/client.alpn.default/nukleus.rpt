@@ -49,9 +49,11 @@ read [0x01]
 read [0..8] # authorization
 read ${core:string("app#0")}
 read ${core:string("net#0")}
-read ${core:string("client")}      # client store
-read ${core:string("localhost")}
-read [0xff]
+read ${tls:routeEx()
+          .store("client")
+          .hostname("localhost")
+          .protocol(null)
+          .build()}
 
 write 0x40000001
 write ${correlationIdRG010101N}

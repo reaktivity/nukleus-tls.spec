@@ -19,6 +19,6 @@ connect await ROUTED_CLIENT
   option nukleus:window 65536
   option nukleus:transmission "simplex"
 
-write nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
+write nukleus:begin.ext ${nukleus:id("not-proxy")} "extension"
 
 connect abort

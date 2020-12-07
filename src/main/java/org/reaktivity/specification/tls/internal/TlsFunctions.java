@@ -23,7 +23,6 @@ import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
 import org.reaktivity.specification.tls.internal.types.control.TlsRouteExFW;
-import org.reaktivity.specification.tls.internal.types.stream.TlsBeginExFW;
 
 public final class TlsFunctions
 {
@@ -44,12 +43,6 @@ public final class TlsFunctions
     public static TlsRouteExBuilder routeEx()
     {
         return new TlsRouteExBuilder();
-    }
-
-    @Function
-    public static TlsBeginExBuilder beginEx()
-    {
-        return new TlsBeginExBuilder();
     }
 
     public static final class TlsRouteExBuilder
@@ -89,47 +82,6 @@ public final class TlsFunctions
             final TlsRouteExFW routeEx = routeExRW.build();
             final byte[] array = new byte[routeEx.sizeof()];
             routeEx.buffer().getBytes(routeEx.offset(), array);
-            return array;
-        }
-    }
-
-    public static final class TlsBeginExBuilder
-    {
-        private final TlsBeginExFW.Builder beginExRW;
-
-        private TlsBeginExBuilder()
-        {
-            final MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
-            this.beginExRW = new TlsBeginExFW.Builder()
-                                             .wrap(writeBuffer, 0, writeBuffer.capacity());
-        }
-
-        public TlsBeginExBuilder typeId(
-            int typeId)
-        {
-            beginExRW.typeId(typeId);
-            return this;
-        }
-
-        public TlsBeginExBuilder hostname(
-            String hostname)
-        {
-            beginExRW.hostname(hostname);
-            return this;
-        }
-
-        public TlsBeginExBuilder protocol(
-            String protocol)
-        {
-            beginExRW.protocol(protocol);
-            return this;
-        }
-
-        public byte[] build()
-        {
-            final TlsBeginExFW beginEx = beginExRW.build();
-            final byte[] array = new byte[beginEx.sizeof()];
-            beginEx.buffer().getBytes(beginEx.offset(), array);
             return array;
         }
     }
