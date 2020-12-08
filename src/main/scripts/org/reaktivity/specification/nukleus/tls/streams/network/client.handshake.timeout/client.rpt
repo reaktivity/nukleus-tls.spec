@@ -16,20 +16,12 @@
 
 property authorization 0L
 
-connect await ROUTED_CLIENT
+connect await ROUTED_SERVER
         "nukleus://streams/net#0"
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-write nukleus:begin.ext ${tls:beginEx()
-                             .typeId(nukleus:id("tls"))
-                             .hostname("localhost")
-                             .protocol(null)
-                             .build()}
-
 connected
 
-read aborted
-
-write abort
+read abort

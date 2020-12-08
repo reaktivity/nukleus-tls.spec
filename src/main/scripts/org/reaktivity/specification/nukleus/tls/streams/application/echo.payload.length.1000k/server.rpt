@@ -21,11 +21,12 @@ accept "nukleus://streams/app#0"
   option nukleus:throttle "message"
 accepted
 
-read nukleus:begin.ext ${tls:beginEx()
-                            .typeId(nukleus:id("tls"))
-                            .hostname("localhost")
-                            .protocol(null)
-                            .build()}
+read nukleus:begin.ext ${proxy:matchBeginEx()
+                              .typeId(nukleus:id("proxy"))
+                              .info()
+                                .authority("localhost")
+                                .build()
+                              .build()}
 
 connected
 
