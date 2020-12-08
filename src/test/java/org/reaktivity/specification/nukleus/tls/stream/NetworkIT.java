@@ -296,7 +296,18 @@ public class NetworkIT
     @Specification({
         "${scripts}/server.handshake.timeout/client",
         "${scripts}/server.handshake.timeout/server"})
-    public void shouldTimeoutHandshake() throws Exception
+    public void shouldRejectServerHandshakeTimeout() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.handshake.timeout/client",
+        "${scripts}/client.handshake.timeout/server"})
+    public void shouldRejectClientHandshakeTimeout() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");

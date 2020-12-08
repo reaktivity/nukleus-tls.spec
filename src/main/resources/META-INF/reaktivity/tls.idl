@@ -20,16 +20,7 @@ scope tls
         struct TlsRouteEx
         {
             string8 store;
-            string8 hostname;
-            string8 protocol;
-        }
-    }
-
-    scope stream
-    {
-        struct TlsBeginEx extends core::stream::Extension
-        {
-            string8 hostname;
+            string16 hostname;
             string8 protocol;
         }
     }

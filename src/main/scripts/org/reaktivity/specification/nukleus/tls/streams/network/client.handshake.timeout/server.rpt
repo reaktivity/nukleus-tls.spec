@@ -22,14 +22,6 @@ accept "nukleus://streams/net#0"
   option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext ${tls:beginEx()
-                            .typeId(nukleus:id("tls"))
-                            .hostname("localhost")
-                            .protocol(null)
-                            .build()}
-
 connected
 
 write aborted
-
-read aborted

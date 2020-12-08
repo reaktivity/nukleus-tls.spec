@@ -22,10 +22,13 @@ connect await ROUTED_CLIENT
   option nukleus:window 65536
   option nukleus:transmission "duplex"
 
-write nukleus:begin.ext ${tls:beginEx()
-                             .typeId(nukleus:id("tls"))
-                             .hostname("localhost")
-                             .protocol(null)
-                             .build()}
+write nukleus:begin.ext ${proxy:beginEx()
+                               .typeId(nukleus:id("proxy"))
+                               .addressNone()
+                                 .build()
+                               .info()
+                                 .authority("localhost")
+                                 .build()
+                               .build()}
 
 connected

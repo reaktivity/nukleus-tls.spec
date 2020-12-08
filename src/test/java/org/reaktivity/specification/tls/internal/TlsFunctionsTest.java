@@ -30,7 +30,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.reaktivity.specification.tls.internal.types.control.TlsRouteExFW;
-import org.reaktivity.specification.tls.internal.types.stream.TlsBeginExFW;
 
 public class TlsFunctionsTest
 {
@@ -67,22 +66,5 @@ public class TlsFunctionsTest
         assertEquals("example", routeEx.store().asString());
         assertEquals("example.com", routeEx.hostname().asString());
         assertEquals("echo", routeEx.protocol().asString());
-    }
-
-    @Test
-    public void shouldGenerateBeginExtension() throws UnknownHostException
-    {
-        byte[] build = TlsFunctions.beginEx()
-                                   .typeId(0x01)
-                                   .hostname("example.com")
-                                   .protocol("echo")
-                                   .build();
-
-        DirectBuffer buffer = new UnsafeBuffer(build);
-        TlsBeginExFW beginEx = new TlsBeginExFW().wrap(buffer, 0, buffer.capacity());
-
-        assertEquals(0x01, beginEx.typeId());
-        assertEquals("example.com", beginEx.hostname().asString());
-        assertEquals("echo", beginEx.protocol().asString());
     }
 }

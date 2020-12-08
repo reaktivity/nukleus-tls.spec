@@ -19,7 +19,7 @@ connect await ROUTED_SERVER
   option nukleus:window 65536
   option nukleus:transmission "simplex"
 
-write nukleus:begin.ext ${nukleus:id("not-tls")} "extension"
+write nukleus:begin.ext ${nukleus:id("not-proxy")} "extension"
 
 connected
 
