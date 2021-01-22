@@ -151,6 +151,17 @@ public class ApplicationIT
 
     @Test
     @Specification({
+        "${scripts}/server.sent.flush/client",
+        "${scripts}/server.sent.flush/server"})
+    public void shouldReceiveServerSentFlush() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${scripts}/server.sent.write.close/client",
         "${scripts}/server.sent.write.close/server"})
     public void shouldReceiveServerSentWriteClose() throws Exception
@@ -165,6 +176,17 @@ public class ApplicationIT
         "${scripts}/server.sent.write.close.before.handshake/client",
         "${scripts}/server.sent.write.close.before.handshake/server"})
     public void shouldRejectServerSentWriteCloseBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${scripts}/client.sent.flush/client",
+        "${scripts}/client.sent.flush/server"})
+    public void shouldReceiveClientSentFlush() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
