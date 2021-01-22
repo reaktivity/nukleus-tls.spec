@@ -18,6 +18,7 @@ package org.reaktivity.specification.nukleus.tls.stream;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -149,6 +150,18 @@ public class NetworkIT
         k3po.finish();
     }
 
+    @Ignore("TODO")
+    @Test
+    @Specification({
+        "${scripts}/server.sent.flush/client",
+        "${scripts}/server.sent.flush/server"})
+    public void shouldReceiveServerSentFlush() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
     @Test
     @Specification({
         "${scripts}/server.sent.write.close.before.handshake/client",
@@ -176,6 +189,18 @@ public class NetworkIT
         "${scripts}/client.sent.write.close.before.handshake/client",
         "${scripts}/client.sent.write.close.before.handshake/server"})
     public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Ignore("TODO")
+    @Test
+    @Specification({
+        "${scripts}/client.sent.flush/client",
+        "${scripts}/client.sent.flush/server"})
+    public void shouldReceiveClientSentFlush() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");

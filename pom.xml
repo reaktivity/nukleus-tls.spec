@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-tls.spec</artifactId>
-  <version>0.58</version>
+  <version>0.59</version>
   <name>TLS Nukleus Specification</name>
   <description>TLS Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-tls.spec</url>
@@ -49,9 +49,10 @@
     <junit.version>4.13.1</junit.version>
 
     <k3po.version>3.1.0</k3po.version>
-    <reaktor.version>0.152</reaktor.version>
+    <reaktor.version>0.155</reaktor.version>
 
-    <nukleus.proxy.spec.version>0.9</nukleus.proxy.spec.version>
+    <nukleus.proxy.spec.version>0.10</nukleus.proxy.spec.version>
+
     <nukleus.plugin.version>0.77</nukleus.plugin.version>
   </properties>
 
@@ -144,10 +145,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
-          <sourceDirectories>
-            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-            <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
-          </sourceDirectories>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
         <executions>
           <execution>
@@ -173,7 +171,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.5</version>
+        <version>0.8.6</version>
         <configuration>
           <excludes>
             <exclude>org/reaktivity/specification/tls/internal/types/**/*.class</exclude>
@@ -294,6 +292,9 @@
                     <requireReleaseDeps>
                       <message>No Snapshots Allowed!</message>
                     </requireReleaseDeps>
+                    <requireJavaVersion>
+                      <version>[9,10)</version>
+                    </requireJavaVersion>
                   </rules>
                 </configuration>
               </execution>
