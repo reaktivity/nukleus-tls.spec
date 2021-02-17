@@ -30,7 +30,7 @@ import org.kaazing.k3po.junit.rules.K3poRule;
 public class ApplicationIT
 {
     private final K3poRule k3po = new K3poRule()
-        .addScriptRoot("scripts", "org/reaktivity/specification/nukleus/tls/streams/application");
+        .addScriptRoot("app", "org/reaktivity/specification/nukleus/tls/streams/application");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(10, SECONDS));
 
@@ -39,267 +39,219 @@ public class ApplicationIT
 
     @Test
     @Specification({
-        "${scripts}/connection.established/client",
-        "${scripts}/connection.established/server"})
+        "${app}/connection.established/client",
+        "${app}/connection.established/server"})
     public void shouldEstablishConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-            "${scripts}/connection.established.with.extension.data/client",
-            "${scripts}/connection.established.with.extension.data/server"})
+        "${app}/connection.established.with.extension.data/client",
+        "${app}/connection.established.with.extension.data/server"})
     public void shouldEstablishConnectionWithExtensionData() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-            "${scripts}/connection.established.no.hostname.no.alpn/client",
-            "${scripts}/connection.established.no.hostname.no.alpn/server"})
+        "${app}/connection.established.no.hostname.no.alpn/client",
+        "${app}/connection.established.no.hostname.no.alpn/server"})
     public void shouldEstablishConnectionWithNoHostnameNoAlpn() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/connection.established.with.alpn/client",
-        "${scripts}/connection.established.with.alpn/server"})
+        "${app}/connection.established.with.alpn/client",
+        "${app}/connection.established.with.alpn/server"})
     public void shouldEstablishConnectionWithAlpn() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/connection.established/client",
-        "${scripts}/connection.established/server"})
+        "${app}/connection.established/client",
+        "${app}/connection.established/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
     public void shouldEstablishConnectionWithAuthorization() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/echo.payload.length.10k/client",
-        "${scripts}/echo.payload.length.10k/server"})
+        "${app}/echo.payload.length.10k/client",
+        "${app}/echo.payload.length.10k/server"})
     public void shouldEchoPayloadLength10k() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-            "${scripts}/client.auth/client",
-            "${scripts}/client.auth/server"})
+        "${app}/client.auth/client",
+        "${app}/client.auth/server"})
     public void shouldEstablishConnectionWithClientAuth() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/echo.payload.length.10k/client",
-        "${scripts}/echo.payload.length.10k/server"})
+        "${app}/echo.payload.length.10k/client",
+        "${app}/echo.payload.length.10k/server"})
     @ScriptProperty("authorization 0x0001_000000000000L")
     public void shouldEchoPayloadLength10kWithAuthorization() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/echo.payload.length.100k/client",
-        "${scripts}/echo.payload.length.100k/server"})
+        "${app}/echo.payload.length.100k/client",
+        "${app}/echo.payload.length.100k/server"})
     public void shouldEchoPayloadLength100k() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/echo.payload.length.1000k/client",
-        "${scripts}/echo.payload.length.1000k/server"})
+        "${app}/echo.payload.length.1000k/client",
+        "${app}/echo.payload.length.1000k/server"})
     public void shouldEchoPayloadLength1000k() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.flush/client",
-        "${scripts}/server.sent.flush/server"})
+        "${app}/server.sent.flush/client",
+        "${app}/server.sent.flush/server"})
     public void shouldReceiveServerSentFlush() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.write.close/client",
-        "${scripts}/server.sent.write.close/server"})
+        "${app}/server.sent.write.close/client",
+        "${app}/server.sent.write.close/server"})
     public void shouldReceiveServerSentWriteClose() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.write.close.before.handshake/client",
-        "${scripts}/server.sent.write.close.before.handshake/server"})
+        "${app}/server.sent.write.close.before.handshake/client",
+        "${app}/server.sent.write.close.before.handshake/server"})
     public void shouldRejectServerSentWriteCloseBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.flush/client",
-        "${scripts}/client.sent.flush/server"})
+        "${app}/client.sent.flush/client",
+        "${app}/client.sent.flush/server"})
     public void shouldReceiveClientSentFlush() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.write.close/client",
-        "${scripts}/client.sent.write.close/server"})
+        "${app}/client.sent.write.close/client",
+        "${app}/client.sent.write.close/server"})
     public void shouldReceiveClientSentWriteClose() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.write.close.before.handshake/client",
-        "${scripts}/client.sent.write.close.before.handshake/server"})
+        "${app}/client.sent.write.close.before.handshake/client",
+        "${app}/client.sent.write.close.before.handshake/server"})
     public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.write.abort/client",
-        "${scripts}/server.sent.write.abort/server"})
+        "${app}/server.sent.write.abort/client",
+        "${app}/server.sent.write.abort/server"})
     public void shouldReceiveServerSentWriteAbort() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.write.abort.before.handshake/client",
-        "${scripts}/server.sent.write.abort.before.handshake/server"})
+        "${app}/server.sent.write.abort.before.handshake/client",
+        "${app}/server.sent.write.abort.before.handshake/server"})
     public void shouldRejectServerSentWriteAbortBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.write.abort/client",
-        "${scripts}/client.sent.write.abort/server"})
+        "${app}/client.sent.write.abort/client",
+        "${app}/client.sent.write.abort/server"})
     public void shouldReceiveClientSentWriteAbort() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.write.abort.before.handshake/client",
-        "${scripts}/client.sent.write.abort.before.handshake/server"})
+        "${app}/client.sent.write.abort.before.handshake/client",
+        "${app}/client.sent.write.abort.before.handshake/server"})
     public void shouldReceiveClientSentWriteAbortBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.read.abort/client",
-        "${scripts}/server.sent.read.abort/server"})
+        "${app}/server.sent.read.abort/client",
+        "${app}/server.sent.read.abort/server"})
     public void shouldReceiveServerSentReadAbort() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/server.sent.read.abort.before.handshake/client",
-        "${scripts}/server.sent.read.abort.before.handshake/server"})
+        "${app}/server.sent.read.abort.before.handshake/client",
+        "${app}/server.sent.read.abort.before.handshake/server"})
     public void shouldRejectServerSentReadAbortBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.read.abort/client",
-        "${scripts}/client.sent.read.abort/server"})
+        "${app}/client.sent.read.abort/client",
+        "${app}/client.sent.read.abort/server"})
     public void shouldReceiveClientSentReadAbort() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${scripts}/client.sent.read.abort.before.handshake/client",
-        "${scripts}/client.sent.read.abort.before.handshake/server"})
+        "${app}/client.sent.read.abort.before.handshake/client",
+        "${app}/client.sent.read.abort.before.handshake/server"})
     public void shouldReceiveClientSentReadAbortBeforeHandshake() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 }

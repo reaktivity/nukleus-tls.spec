@@ -18,8 +18,7 @@ property authorization 0L
 
 property client10k ${tls:randomBytes(10240)}
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
   option nukleus:transmission "duplex"

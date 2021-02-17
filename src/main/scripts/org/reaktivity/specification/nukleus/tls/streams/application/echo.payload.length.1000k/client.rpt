@@ -16,8 +16,7 @@
 
 property client1000k ${tls:randomBytes(1024000)}
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
   option nukleus:window 81920
   option nukleus:padding 0
   option nukleus:transmission "duplex"

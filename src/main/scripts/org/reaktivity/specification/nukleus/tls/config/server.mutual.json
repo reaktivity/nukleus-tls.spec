@@ -1,0 +1,38 @@
+{
+    "vaults":
+    [
+        {
+            "name": "server",
+            "type": "filesystem",
+            "options":
+            {
+                "keystore":
+                {
+                    "store": "tls/stores/server/keys",
+                    "type": "pkcs12",
+                    "password": "generated"
+                },
+                "truststore":
+                {
+                    "store": "tls/stores/server/trust",
+                    "type": "pkcs12"
+                }
+            }
+        }
+    ],
+    "bindings":
+    [
+        {
+            "entry": "net#0",
+            "type" : "tls",
+            "kind": "server",
+            "options":
+            {
+                "vault": "server",
+                "keys": [ "localhost" ],
+                "trust": [ "clients" ]
+            },
+            "exit": "app#0"
+        }
+    ]
+}

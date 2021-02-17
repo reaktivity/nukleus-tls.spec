@@ -1,0 +1,56 @@
+{
+    "vaults":
+    [
+        {
+            "name": "server",
+            "type": "filesystem",
+            "options":
+            {
+                "keystore":
+                {
+                    "store": "tls/stores/server/keys",
+                    "type": "pkcs12",
+                    "password": "generated"
+                },
+                "truststore":
+                {
+                    "store": "tls/stores/server/trust",
+                    "type": "pkcs12"
+                }
+            }
+        }
+    ],
+    "realms":
+    [
+        {
+            "name": "clients",
+            "type": "tls"
+        }
+    ],
+    "bindings":
+    [
+        {
+            "entry": "net#0",
+            "type" : "tls",
+            "kind": "server",
+            "options":
+            {
+                "vault": "server",
+                "keys": [ "localhost" ],
+                "trust": [ "clients" ],
+                "realm": "clients"
+            },
+            "routes":
+            [
+                {
+                    "exit": "app#0",
+                    "allow":
+                    {
+                        "realm": "clients",
+                        "identity": "client#1"
+                    }
+                }
+            ]
+        }
+    ]
+}

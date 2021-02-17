@@ -16,8 +16,7 @@
 
 property authorization 0L
 
-connect await ROUTED_SERVER
-        "tls://localhost:9090"
+connect "tls://localhost:9090"
   option tls:transport "nukleus://streams/net#0"
   option tls:trustStoreFile "src/test/democa/stores/server.want.auth/k3po.trust"
   option tls:trustStorePassword "generated"
