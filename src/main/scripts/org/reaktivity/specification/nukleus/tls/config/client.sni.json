@@ -6,16 +6,11 @@
             "type": "filesystem",
             "options":
             {
-                "keystore":
+                "trust":
                 {
-                    "store": "tls/stores/client/keys",
+                    "store": "stores/client/trust",
                     "type": "pkcs12",
                     "password": "generated"
-                },
-                "truststore":
-                {
-                    "store": "tls/stores/client/trust",
-                    "type": "pkcs12"
                 }
             }
         }
@@ -26,11 +21,11 @@
             "entry": "app#0",
             "type" : "tls",
             "kind": "client",
+            "vault": "client",
             "options":
             {
-                "vault": "client",
-                "trust": [ "authority" ],
-                "serverNames": [ "localhost" ]
+                "trust": [ "democa" ],
+                "sni": [ "localhost" ]
             },
             "exit": "net#0"
         }

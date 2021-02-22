@@ -18,9 +18,9 @@ property authorization 0L
 
 connect "tls://localhost:9090"
   option tls:transport "nukleus://streams/net#0"
-  option tls:trustStoreFile "src/test/democa/cacerts"
+  option tls:trustStoreFile "src/test/democa/client/trust"
   option tls:trustStorePassword "generated"
-  option tls:keyStoreFile "src/test/democa/localhost"
+  option tls:keyStoreFile "src/test/democa/client/keys"
   option tls:keyStorePassword "generated"
   option nukleus:authorization ${authorization}
   option nukleus:window 65536

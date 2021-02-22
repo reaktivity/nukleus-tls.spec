@@ -11,6 +11,12 @@
                     "store": "stores/client/trust",
                     "type": "pkcs12",
                     "password": "generated"
+                },
+                "keys":
+                {
+                    "store": "stores/client/keys",
+                    "type": "pkcs12",
+                    "password": "generated"
                 }
             }
         }
@@ -25,7 +31,7 @@
             "options":
             {
                 "trust": [ "democa" ],
-                "alpn": [ "protocol2" ]
+                "keys": [ "client1" ]
             },
             "exit": "net#0"
         }

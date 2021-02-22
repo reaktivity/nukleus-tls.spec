@@ -6,16 +6,11 @@
             "type": "filesystem",
             "options":
             {
-                "keystore":
+                "keys":
                 {
-                    "store": "tls/stores/server/keys",
+                    "store": "stores/server/keys",
                     "type": "pkcs12",
                     "password": "generated"
-                },
-                "truststore":
-                {
-                    "store": "tls/stores/server/trust",
-                    "type": "pkcs12"
                 }
             }
         }
@@ -26,13 +21,24 @@
             "entry": "net#0",
             "type" : "tls",
             "kind": "server",
+            "vault": "server",
             "options":
             {
-                "vault": "server",
                 "keys": [ "localhost" ],
                 "alpn": [ "protocol2" ]
             },
-            "exit": "app#0"
+            "routes":
+            [
+                {
+                    "exit": "app#0",
+                    "when":
+                    [
+                        {
+                            "alpn": "protocol2"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

@@ -16,7 +16,7 @@
 
 connect "tls://localhost:9090"
   option tls:transport "nukleus://streams/net#0"
-  option tls:trustStoreFile "src/test/democa/cacerts"
+  option tls:trustStoreFile "src/test/democa/client/trust"
   option tls:trustStorePassword "generated"
   option nukleus:window 65536
   option nukleus:transmission "duplex"

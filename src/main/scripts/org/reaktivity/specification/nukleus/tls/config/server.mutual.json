@@ -6,16 +6,17 @@
             "type": "filesystem",
             "options":
             {
-                "keystore":
+                "keys":
                 {
-                    "store": "tls/stores/server/keys",
+                    "store": "stores/server/keys",
                     "type": "pkcs12",
                     "password": "generated"
                 },
-                "truststore":
+                "trust":
                 {
-                    "store": "tls/stores/server/trust",
-                    "type": "pkcs12"
+                    "store": "stores/server/trust",
+                    "type": "pkcs12",
+                    "password": "generated"
                 }
             }
         }
@@ -26,9 +27,9 @@
             "entry": "net#0",
             "type" : "tls",
             "kind": "server",
+            "vault": "server",
             "options":
             {
-                "vault": "server",
                 "keys": [ "localhost" ],
                 "trust": [ "clients" ]
             },

@@ -129,6 +129,8 @@
             <include>src/**</include>
           </includes>
           <excludes>
+            <exclude>**/keys</exclude>
+            <exclude>**/trust</exclude>
             <exclude>src/conf/**</exclude>
             <exclude>src/test/democa/**</exclude>
             <exclude>src/test/tools/**</exclude>

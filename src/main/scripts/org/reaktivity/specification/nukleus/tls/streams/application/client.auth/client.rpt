@@ -23,8 +23,6 @@ connect "nukleus://streams/app#0"
   option nukleus:window 65536
   option nukleus:transmission "duplex"
   option nukleus:throttle "message"
-  option tls:keyStoreFile "src/test/democa/localhost"
-  option tls:keyStorePassword "generated"
 
 write nukleus:begin.ext ${proxy:beginEx()
                                .typeId(nukleus:id("proxy"))
