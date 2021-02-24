@@ -30,7 +30,7 @@
             "vault": "client",
             "options":
             {
-                "trust": [ "democa" ],
+                "trust": [ "serverca" ],
                 "keys": [ "client1" ]
             },
             "exit": "net#0"

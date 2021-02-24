@@ -31,7 +31,7 @@
             "options":
             {
                 "keys": [ "localhost" ],
-                "trust": [ "clients" ]
+                "trust": [ "clientca" ]
             },
             "exit": "app#0"
         }

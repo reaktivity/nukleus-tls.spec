@@ -38,7 +38,7 @@
             "options":
             {
                 "keys": [ "localhost" ],
-                "trust": [ "clients" ],
+                "trust": [ "clientca" ],
                 "realm": "clients"
             },
             "routes":

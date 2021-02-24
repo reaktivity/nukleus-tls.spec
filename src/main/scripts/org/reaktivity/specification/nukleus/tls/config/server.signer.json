@@ -6,15 +6,9 @@
             "type": "filesystem",
             "options":
             {
-                "keys":
+                "signers":
                 {
-                    "store": "stores/server/keys",
-                    "type": "pkcs12",
-                    "password": "generated"
-                },
-                "trust":
-                {
-                    "store": "stores/server/trust",
+                    "store": "stores/server/signers",
                     "type": "pkcs12",
                     "password": "generated"
                 }
@@ -30,9 +24,12 @@
             "vault": "server",
             "options":
             {
-                "keys": [ "localhost" ],
-                "trust": [ "clientca" ],
-                "mutual": "wanted"
+                "certificate":
+                {
+                    "validity": 10,
+                    "subject": "CN=localhost",
+                    "signers": [ "serverca" ]
+                }
             },
             "exit": "app#0"
         }

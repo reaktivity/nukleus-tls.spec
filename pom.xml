@@ -131,9 +131,10 @@
           <excludes>
             <exclude>**/keys</exclude>
             <exclude>**/trust</exclude>
+            <exclude>**/signers</exclude>
+            <exclude>**/*.csr</exclude>
+            <exclude>**/*.crt</exclude>
             <exclude>src/conf/**</exclude>
-            <exclude>src/test/democa/**</exclude>
-            <exclude>src/test/tools/**</exclude>
           </excludes>
           <mapping>
             <idl>SLASHSTAR_STYLE</idl>

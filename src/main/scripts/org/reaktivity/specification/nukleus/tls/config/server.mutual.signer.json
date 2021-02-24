@@ -6,9 +6,9 @@
             "type": "filesystem",
             "options":
             {
-                "keys":
+                "signers":
                 {
-                    "store": "stores/server/keys",
+                    "store": "stores/server/signers",
                     "type": "pkcs12",
                     "password": "generated"
                 },
@@ -30,9 +30,17 @@
             "vault": "server",
             "options":
             {
-                "keys": [ "localhost" ],
                 "trust": [ "clientca" ],
-                "mutual": "wanted"
+                "certs":
+                {
+                    "request":
+                    {
+                        "validity": 10,
+                        "signature": "SHA256",
+                        "subject": "CN=localhost"
+                    },
+                    "signers": [ "serverca" ]
+                }
             },
             "exit": "app#0"
         }

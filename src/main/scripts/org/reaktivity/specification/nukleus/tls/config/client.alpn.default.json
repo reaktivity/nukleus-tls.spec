@@ -24,7 +24,7 @@
             "vault": "client",
             "options":
             {
-                "trust": [ "democa" ],
+                "trust": [ "serverca" ],
                 "alpn": [ "protocol2", null ]
             },
             "exit": "net#0"
