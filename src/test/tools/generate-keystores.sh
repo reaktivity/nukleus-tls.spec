@@ -1,152 +1,179 @@
 #!/bin/bash
 
-CA_ALIAS=democa
-CA_PASS=generated
+SERVER_CA_ALIAS=serverca
+SERVER_CA_PASS=generated
 
-CERT_ALIAS=localhost
-CERT_PASS=generated
+SERVER_CERT_ALIAS=localhost
+SERVER_CERT_PASS=generated
+SERVER_CERT_SAN=dns:localhost
 
-SAN=dns:localhost
+SERVER_TRUST_PASS=generated
+
+CLIENT_CA_ALIAS=clientca
+CLIENT_CA_PASS=generated
+
+CLIENT_CERT_ALIAS=client1
+CLIENT_CERT_PASS=generated
+
+CLIENT_TRUST_PASS=generated
 
 clean()
 {
   echo "Clean files from previous run"
-  rm -rf ${CA_ALIAS}.jks ${CA_ALIAS}.crt ${CA_ALIAS}.p12 ${CA_ALIAS}.key
-  rm -rf ${CERT_ALIAS}.jks ${CERT_ALIAS}.crt ${CERT_ALIAS}.p12 ${CERT_ALIAS}.key ${CERT_ALIAS}.csr
+  rm -rf server
+  rm -rf client
+  rm -rf ${SERVER_CA_ALIAS}.jks ${SERVER_CA_ALIAS}.crt ${SERVER_CA_ALIAS}.p12 ${SERVER_CA_ALIAS}.key
+  rm -rf ${SERVER_CERT_ALIAS}.jks ${SERVER_CERT_ALIAS}.crt ${SERVER_CERT_ALIAS}.p12 ${SERVER_CERT_ALIAS}.key ${SERVER_CERT_ALIAS}.csr
+  rm -rf ${CLIENT_CA_ALIAS}.jks ${CLIENT_CA_ALIAS}.crt ${CLIENT_CA_ALIAS}.p12 ${CLIENT_CA_ALIAS}.key
+  rm -rf ${CLIENT_CERT_ALIAS}.jks ${CLIENT_CERT_ALIAS}.crt ${CLIENT_CERT_ALIAS}.p12 ${CLIENT_CERT_ALIAS}.key ${CLIENT_CERT_ALIAS}.csr
   rm -rf cacerts.jks
 }
 
 function print_cert()
 {
-  CERT=$1
-  echo ""
-  echo "------------------------------------------------------------------------------"
-  echo "Printing certificate ${CERT}"
-  echo "------------------------------------------------------------------------------"
-  openssl x509 -noout -text -in ${CERT}
+  openssl x509 -noout -text -in $1
 }
 
 function print_req()
 {
-  CERT=$1
-  echo ""
-  echo "------------------------------------------------------------------------------"
-  echo "Printing certificate request ${CERT}"
-  echo "------------------------------------------------------------------------------"
-  openssl req -noout -text -in ${CERT}
+  openssl req -noout -text -in $1
 }
 
 function print_key()
 {
-  KEY=$1
-  echo ""
-  echo "------------------------------------------------------------------------------"
-  echo "Printing key ${KEY}"
-  echo "------------------------------------------------------------------------------"
-  openssl rsa -noout -text -in ${KEY}
+  openssl rsa -noout -text -in $1
 }
 
-create_ca()
+create_server_signers()
+{
+  mkdir -p server
+
+  echo ""
+  echo "------------------------------------------------------------------------------"
+  echo "Generate ca keypair: server/signers"
+  echo "------------------------------------------------------------------------------"
+  keytool -genkeypair -keystore server/signers -storepass ${SERVER_CA_PASS} -keypass ${SERVER_CA_PASS} -alias ${SERVER_CA_ALIAS} -dname "C=US, ST=California, O=Reaktivity, OU=Development, CN=${SERVER_CA_ALIAS}" -validity 3650 -keyalg RSA -ext bc:c
+
+  echo ""
+  echo "------------------------------------------------------------------------------"
+  echo "Export ca certificate in pem format: server/${SERVER_CA_ALIAS}.crt"
+  echo "------------------------------------------------------------------------------"
+  keytool -keystore server/signers -storepass ${SERVER_CA_PASS} -alias ${SERVER_CA_ALIAS} -exportcert -rfc > server/${SERVER_CA_ALIAS}.crt
+
+  print_cert server/${SERVER_CA_ALIAS}.crt
+}
+
+create_client_signers()
+{
+  mkdir -p client
+
+  echo ""
+  echo "------------------------------------------------------------------------------"
+  echo "Generate ca keypair: client/signers"
+  echo "------------------------------------------------------------------------------"
+  keytool -genkeypair -keystore client/signers -storepass ${CLIENT_CA_PASS} -keypass ${CLIENT_CA_PASS} -alias ${CLIENT_CA_ALIAS} -dname "C=US, ST=California, O=Reaktivity, OU=Development, CN=${SERVER_CA_ALIAS}" -validity 3650 -keyalg RSA -ext bc:c
+
+  echo ""
+  echo "------------------------------------------------------------------------------"
+  echo "Export ca certificate in pem format: client/${CLIENT_CA_ALIAS}.crt"
+  echo "------------------------------------------------------------------------------"
+  keytool -keystore client/signers -storepass ${CLIENT_CA_PASS} -alias ${CLIENT_CA_ALIAS} -exportcert -rfc > client/${CLIENT_CA_ALIAS}.crt
+
+  print_cert client/${CLIENT_CA_ALIAS}.crt
+}
+
+create_server_keys()
 {
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Generate ca keypair: ${CA_ALIAS}.jks"
+  echo "Generate certificate keypair: server/keys"
   echo "------------------------------------------------------------------------------"
-  keytool -genkeypair -keystore ${CA_ALIAS}.jks -storepass ${CA_PASS} -keypass ${CA_PASS} -alias ${CA_ALIAS} -dname "C=US, ST=California, O=Kaazing, OU=Development, CN=${CA_ALIAS}" -validity 3650 -keyalg RSA -ext bc:c
-
-  # The previous command generates a key pair (a public key and associated private key). Wraps the
-  # public key into an X.509 v3 self-signed certificate, which is stored as a single-element certificate
-  # chain. This certificate chain and the private key are stored in a new keystore entry identified by alias.
-  # To view the keystore: keytool -list -v -keystore democa.jks -storepass capass
+  keytool -genkeypair -keystore server/keys -storepass ${SERVER_CERT_PASS} -keypass ${SERVER_CERT_PASS} -alias ${SERVER_CERT_ALIAS} -dname "C=US, ST=California, O=Reaktivity, OU=Development, CN=${SERVER_CERT_ALIAS}" -validity 3650 -keyalg RSA
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Export ca certificate in pem format: ${CA_ALIAS}.crt"
+  echo "Create certificate signing request: server/${SERVER_CERT_ALIAS}.csr"
   echo "------------------------------------------------------------------------------"
-  keytool -keystore ${CA_ALIAS}.jks -storepass ${CA_PASS} -alias ${CA_ALIAS} -exportcert -rfc > ${CA_ALIAS}.crt
+  keytool -keystore server/keys -storepass ${SERVER_CERT_PASS} -alias ${SERVER_CERT_ALIAS} -certreq -rfc > server/${SERVER_CERT_ALIAS}.csr
 
-  print_cert ${CA_ALIAS}.crt
-
-  # Keytool cannot export a private key. So save the keystore in P12 format, which can then be used
-  # by openssl to export the private key.
+  print_req server/${SERVER_CERT_ALIAS}.csr
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Export keystore to P12 format: ${CA_ALIAS}.p12"
+  echo "Create signed certificate: server/${SERVER_CERT_ALIAS}.crt"
   echo "------------------------------------------------------------------------------"
-  keytool -importkeystore -srckeystore ${CA_ALIAS}.jks -srcstorepass ${CA_PASS} -srcalias ${CA_ALIAS} -destkeystore ${CA_ALIAS}.p12 -deststorepass ${CA_PASS} -deststoretype PKCS12
+  keytool -keystore server/signers -storepass ${SERVER_CA_PASS} -keypass ${SERVER_CA_PASS} -gencert -alias ${SERVER_CA_ALIAS} -ext ku:c=dig,keyenc -ext SAN="${SERVER_CERT_SAN}" -rfc -validity 1800 < server/${SERVER_CERT_ALIAS}.csr > server/${SERVER_CERT_ALIAS}.crt
+
+  print_cert server/${SERVER_CERT_ALIAS}.crt
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Export private key in pem format: ${CA_ALIAS}.key"
+  echo "Import signed certificate: server/${SERVER_CERT_ALIAS}.crt"
   echo "------------------------------------------------------------------------------"
-  openssl pkcs12 -in ${CA_ALIAS}.p12 -passin pass:${CA_PASS} -nodes -nocerts -out ${CA_ALIAS}.key
-
-  print_key ${CA_ALIAS}.key
+  keytool -keystore server/keys -storepass ${SERVER_CERT_PASS} -keypass ${SERVER_CERT_PASS} -importcert -alias ${SERVER_CA_ALIAS} -rfc -noprompt < server/${SERVER_CA_ALIAS}.crt
+  keytool -keystore server/keys -storepass ${SERVER_CERT_PASS} -keypass ${SERVER_CERT_PASS} -importcert -alias ${SERVER_CERT_ALIAS} -rfc < server/${SERVER_CERT_ALIAS}.crt
+  keytool -keystore server/keys -storepass ${SERVER_CERT_PASS} -keypass ${SERVER_CERT_PASS} -delete -alias ${SERVER_CA_ALIAS} -noprompt
 }
 
-create_server_cert()
+create_client_keys()
 {
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Generate cert keypair: ${CERT_ALIAS}.jks"
+  echo "Generate certificate keypair: client/keys"
   echo "------------------------------------------------------------------------------"
-  keytool -genkeypair -keystore ${CERT_ALIAS}.jks -storepass ${CERT_PASS} -keypass ${CERT_PASS} -alias ${CERT_ALIAS} -dname "C=US, ST=California, O=Kaazing, OU=Development, CN=${CERT_ALIAS}" -validity 3650 -keyalg RSA
-
-  # The previous command generates a key pair (a public key and associated private key). Wraps the
-  # public key into an X.509 v3 self-signed certificate, which is stored as a single-element certificate
-  # chain. This certificate chain and the private key are stored in a new keystore entry identified by alias.
-  # To view the keystore: keytool -list -v -keystore democa.jks -storepass capass
+  keytool -genkeypair -keystore client/keys -storepass ${CLIENT_CERT_PASS} -keypass ${CLIENT_CERT_PASS} -alias ${CLIENT_CERT_ALIAS} -dname "C=US, ST=California, O=Reaktivity, OU=Development, CN=${SERVER_CERT_ALIAS}" -validity 3650 -keyalg RSA
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Create certificate signing request: ${CERT_ALIAS}.csr"
+  echo "Create certificate signing request: client/${CLIENT_CERT_ALIAS}.csr"
   echo "------------------------------------------------------------------------------"
-  keytool -keystore ${CERT_ALIAS}.jks -storepass ${CERT_PASS} -alias ${CERT_ALIAS} -certreq -rfc > ${CERT_ALIAS}.csr
+  keytool -keystore client/keys -storepass ${CLIENT_CERT_PASS} -alias ${CLIENT_CERT_ALIAS} -certreq -rfc > client/${CLIENT_CERT_ALIAS}.csr
 
-  print_req ${CERT_ALIAS}.csr
-
-  echo ""
-  echo "------------------------------------------------------------------------------"
-  echo "Sign the csr: ${CERT_ALIAS}.crt"
-  echo "------------------------------------------------------------------------------"
- # keytool -keystore ${CA_ALIAS}.jks -storepass ${CA_PASS} -keypass ${CA_PASS} -gencert -alias ${CA_ALIAS} -ext ku:c=dig,keyenc -rfc -validity 1800 < ${CERT_ALIAS}.csr > ${CERT_ALIAS}.crt
-  keytool -keystore ${CA_ALIAS}.jks -storepass ${CA_PASS} -keypass ${CA_PASS} -gencert -alias ${CA_ALIAS} -ext ku:c=dig,keyenc -ext SAN="${SAN}" -rfc -validity 1800 < ${CERT_ALIAS}.csr > ${CERT_ALIAS}.crt
-
-  print_cert ${CERT_ALIAS}.crt
+  print_req client/${CLIENT_CERT_ALIAS}.csr
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Export keystore to P12 format: ${CERT_ALIAS}.p12"
+  echo "Create signed certificate: client/${CLIENT_CERT_ALIAS}.crt"
   echo "------------------------------------------------------------------------------"
-  keytool -importkeystore -srckeystore ${CERT_ALIAS}.jks -srcstorepass ${CERT_PASS} -srcalias ${CERT_ALIAS} -destkeystore ${CERT_ALIAS}.p12 -deststorepass ${CERT_PASS} -deststoretype PKCS12
+  keytool -keystore client/signers -storepass ${CLIENT_CA_PASS} -keypass ${CLIENT_CA_PASS} -gencert -alias ${CLIENT_CA_ALIAS} -ext ku:c=dig,keyenc -dname "CN=${CLIENT_CERT_ALIAS}" -rfc -validity 1800 < client/${CLIENT_CERT_ALIAS}.csr > client/${CLIENT_CERT_ALIAS}.crt
+
+  print_cert client/${CLIENT_CERT_ALIAS}.crt
 
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Export private key in pem format: ${CERT_ALIAS}.key"
+  echo "Import signed certificate: client/${CLIENT_CERT_ALIAS}.crt"
   echo "------------------------------------------------------------------------------"
-  openssl pkcs12 -in ${CERT_ALIAS}.p12 -passin pass:${CERT_PASS} -nodes -nocerts -out ${CERT_ALIAS}.key
-
-  echo ""
-  echo "------------------------------------------------------------------------------"
-  echo "Import the signed certificate: ${CERT_ALIAS}.crt"
-  echo "------------------------------------------------------------------------------"
-  keytool -keystore ${CERT_ALIAS}.jks -storepass ${CERT_PASS} -keypass ${CERT_PASS} -importcert -alias ${CA_ALIAS} -rfc -noprompt < ${CA_ALIAS}.crt
-  keytool -keystore ${CERT_ALIAS}.jks -storepass ${CERT_PASS} -keypass ${CERT_PASS} -importcert -alias ${CERT_ALIAS} -rfc < ${CERT_ALIAS}.crt
-  keytool -keystore ${CERT_ALIAS}.jks -storepass ${CERT_PASS} -keypass ${CERT_PASS} -delete -alias ${CA_ALIAS} -noprompt
+  keytool -keystore client/keys -storepass ${CLIENT_CERT_PASS} -keypass ${CLIENT_CERT_PASS} -importcert -alias ${CLIENT_CA_ALIAS} -rfc -noprompt < client/${CLIENT_CA_ALIAS}.crt
+  keytool -keystore client/keys -storepass ${CLIENT_CERT_PASS} -keypass ${CLIENT_CERT_PASS} -importcert -alias ${CLIENT_CERT_ALIAS} -rfc < client/${CLIENT_CERT_ALIAS}.crt
+  keytool -keystore client/keys -storepass ${CLIENT_CERT_PASS} -keypass ${CLIENT_CERT_PASS} -delete -alias ${CLIENT_CA_ALIAS} -noprompt
 }
 
-create_cacerts()
+create_server_trust()
 {
-
   echo ""
   echo "------------------------------------------------------------------------------"
-  echo "Import the democa certificate: ${CA_ALIAS}.crt"
+  echo "Import the client ca certificate: server/trust"
   echo "------------------------------------------------------------------------------"
-  keytool -keystore cacerts.jks -storepass ${CERT_PASS} -keypass ${CERT_PASS} -importcert -alias ${CA_ALIAS} -rfc -noprompt < ${CA_ALIAS}.crt
+  keytool -keystore server/trust -storepass ${SERVER_TRUST_PASS} -keypass ${SERVER_TRUST_PASS} -importcert -alias ${CLIENT_CA_ALIAS} -rfc -noprompt < client/${CLIENT_CA_ALIAS}.crt
+
+  print_cert client/${CLIENT_CA_ALIAS}.crt
+}
+
+create_client_trust()
+{
+  echo ""
+  echo "------------------------------------------------------------------------------"
+  echo "Import the server ca certificate: client/trust"
+  echo "------------------------------------------------------------------------------"
+  keytool -keystore client/trust -storepass ${CLIENT_TRUST_PASS} -keypass ${CLIENT_TRUST_PASS} -importcert -alias ${SERVER_CA_ALIAS} -rfc -noprompt < server/${SERVER_CA_ALIAS}.crt
+
+  print_cert server/${SERVER_CA_ALIAS}.crt
 }
 
 clean
-create_ca
-create_server_cert
-create_cacerts
+create_server_signers
+create_client_signers
+create_server_keys
+create_client_keys
+create_server_trust
+create_client_trust
