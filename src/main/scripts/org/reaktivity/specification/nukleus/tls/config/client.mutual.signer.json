@@ -31,14 +31,9 @@
             "options":
             {
                 "trust": [ "serverca" ],
-                "certs":
+                "certificate":
                 {
-                    "request":
-                    {
-                        "validity": 10,
-                        "signature": "SHA256",
-                        "subject": "CN=client1"
-                    },
+                    "validity": 10,
                     "signers": [ "clientca" ]
                 }
             },
