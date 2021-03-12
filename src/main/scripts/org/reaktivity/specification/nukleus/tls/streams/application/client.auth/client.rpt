@@ -31,7 +31,7 @@ write nukleus:begin.ext ${proxy:beginEx()
                                .info()
                                  .authority("localhost")
                                  .secure()
-                                   .name("CN=client1")
+                                   .name("client1")
                                    .build()
                                  .build()
                                .build()}
