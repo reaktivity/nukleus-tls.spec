@@ -1,0 +1,43 @@
+{
+    "vaults":
+    [
+        {
+            "name": "server",
+            "type": "filesystem",
+            "options":
+            {
+                "signers":
+                {
+                    "store": "stores/server/signers",
+                    "type": "pkcs12",
+                    "password": "generated"
+                },
+                "trust":
+                {
+                    "store": "stores/server/trust",
+                    "type": "pkcs12",
+                    "password": "generated"
+                }
+            }
+        }
+    ],
+    "bindings":
+    [
+        {
+            "entry": "net#0",
+            "type" : "tls",
+            "kind": "server",
+            "vault": "server",
+            "options":
+            {
+                "trust": [ "clientca" ],
+                "certificate":
+                {
+                    "validity": 10,
+                    "signers": [ "serverca" ]
+                }
+            },
+            "exit": "app#0"
+        }
+    ]
+}

@@ -15,21 +15,15 @@
  */
 package org.reaktivity.specification.tls.internal;
 
-import static org.junit.Assert.assertEquals;
 import static org.kaazing.k3po.lang.internal.el.ExpressionFactoryUtils.newExpressionFactory;
-
-import java.net.UnknownHostException;
 
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 
-import org.agrona.DirectBuffer;
-import org.agrona.concurrent.UnsafeBuffer;
 import org.junit.Before;
 import org.junit.Test;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
-import org.reaktivity.specification.tls.internal.types.control.TlsRouteExFW;
 
 public class TlsFunctionsTest
 {
@@ -49,22 +43,5 @@ public class TlsFunctionsTest
         String expressionText = "${tls:randomBytes(42)}";
         ValueExpression expression = factory.createValueExpression(ctx, expressionText, byte[].class);
         expression.getValue(ctx);
-    }
-
-    @Test
-    public void shouldGenerateRouteExtension() throws UnknownHostException
-    {
-        byte[] build = TlsFunctions.routeEx()
-                                   .store("example")
-                                   .hostname("example.com")
-                                   .protocol("echo")
-                                   .build();
-
-        DirectBuffer buffer = new UnsafeBuffer(build);
-        TlsRouteExFW routeEx = new TlsRouteExFW().wrap(buffer, 0, buffer.capacity());
-
-        assertEquals("example", routeEx.store().asString());
-        assertEquals("example.com", routeEx.hostname().asString());
-        assertEquals("echo", routeEx.protocol().asString());
     }
 }
