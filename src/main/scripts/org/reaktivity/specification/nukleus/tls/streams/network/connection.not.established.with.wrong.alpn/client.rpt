@@ -14,10 +14,9 @@
 # under the License.
 #
 
-connect await ROUTED_SERVER
-        "tls://localhost:9090"
+connect "tls://localhost:9090"
   option tls:transport "nukleus://streams/net#0"
-  option tls:trustStoreFile "src/test/democa/cacerts"
+  option tls:trustStoreFile "src/test/democa/client/trust"
   option tls:trustStorePassword "generated"
   option tls:applicationProtocols "protocol1,protocol3"
   option nukleus:window 65536

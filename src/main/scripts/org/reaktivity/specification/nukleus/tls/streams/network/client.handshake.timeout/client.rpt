@@ -16,8 +16,7 @@
 
 property authorization 0L
 
-connect await ROUTED_SERVER
-        "nukleus://streams/net#0"
+connect "nukleus://streams/net#0"
   option nukleus:authorization ${authorization}
   option nukleus:window 65536
   option nukleus:transmission "duplex"

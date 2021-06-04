@@ -25,6 +25,9 @@ read nukleus:begin.ext ${proxy:matchBeginEx()
                               .typeId(nukleus:id("proxy"))
                               .info()
                                 .authority("localhost")
+                                .secure()
+                                  .name("client1")
+                                  .build()
                                 .build()
                               .build()}
 

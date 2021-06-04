@@ -16,7 +16,7 @@
 
 accept "tls://localhost:9090"
   option tls:transport "nukleus://streams/net#0"
-  option tls:keyStoreFile "src/test/democa/localhost"
+  option tls:keyStoreFile "src/test/democa/server/keys"
   option tls:keyStorePassword "generated"
   option tls:applicationProtocols "protocol2"
   option nukleus:window 65536

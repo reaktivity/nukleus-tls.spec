@@ -18,11 +18,8 @@ package org.reaktivity.specification.tls.internal;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.agrona.MutableDirectBuffer;
-import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
-import org.reaktivity.specification.tls.internal.types.control.TlsRouteExFW;
 
 public final class TlsFunctions
 {
@@ -37,53 +34,6 @@ public final class TlsFunctions
             bytes[i] = (byte) random.nextInt(0x100);
         }
         return bytes;
-    }
-
-    @Function
-    public static TlsRouteExBuilder routeEx()
-    {
-        return new TlsRouteExBuilder();
-    }
-
-    public static final class TlsRouteExBuilder
-    {
-        private final TlsRouteExFW.Builder routeExRW;
-
-        private TlsRouteExBuilder()
-        {
-            final MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
-            this.routeExRW = new TlsRouteExFW.Builder()
-                                             .wrap(writeBuffer, 0, writeBuffer.capacity());
-        }
-
-        public TlsRouteExBuilder store(
-            String store)
-        {
-            routeExRW.store(store);
-            return this;
-        }
-
-        public TlsRouteExBuilder hostname(
-            String hostname)
-        {
-            routeExRW.hostname(hostname);
-            return this;
-        }
-
-        public TlsRouteExBuilder protocol(
-            String protocol)
-        {
-            routeExRW.protocol(protocol);
-            return this;
-        }
-
-        public byte[] build()
-        {
-            final TlsRouteExFW routeEx = routeExRW.build();
-            final byte[] array = new byte[routeEx.sizeof()];
-            routeEx.buffer().getBytes(routeEx.offset(), array);
-            return array;
-        }
     }
 
     public static class Mapper extends FunctionMapperSpi.Reflective
