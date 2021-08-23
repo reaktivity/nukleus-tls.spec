@@ -11,12 +11,6 @@
                     "store": "stores/client/trust",
                     "type": "pkcs12",
                     "password": "generated"
-                },
-                "signers":
-                {
-                    "store": "stores/client/signers",
-                    "type": "pkcs12",
-                    "password": "generated"
                 }
             }
         }
@@ -31,11 +25,7 @@
             "options":
             {
                 "trust": [ "serverca" ],
-                "certificate":
-                {
-                    "validity": 10,
-                    "signers": [ "clientca" ]
-                }
+                "trustcacerts": true
             },
             "exit": "net#0"
         }

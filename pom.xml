@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-tls.spec</artifactId>
-  <version>0.63</version>
+  <version>0.64</version>
   <name>TLS Nukleus Specification</name>
   <description>TLS Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-tls.spec</url>
@@ -56,7 +56,7 @@
     <junit.version>4.13.1</junit.version>
 
     <k3po.version>3.1.0</k3po.version>
-    <reaktor.version>0.166</reaktor.version>
+    <reaktor.version>0.172</reaktor.version>
 
     <nukleus.proxy.spec.version>0.17</nukleus.proxy.spec.version>
   </properties>
