@@ -32,7 +32,7 @@
             {
                 "keys": [ "localhost" ],
                 "trust": [ "clientca" ],
-                "mutual": "wanted"
+                "mutual": "requested"
             },
             "exit": "app#0"
         }
