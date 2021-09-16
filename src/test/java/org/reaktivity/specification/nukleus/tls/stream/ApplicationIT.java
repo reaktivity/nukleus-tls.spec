@@ -176,6 +176,15 @@ public class ApplicationIT
 
     @Test
     @Specification({
+        "${app}/client.sent.write.close.read.closed/client",
+        "${app}/client.sent.write.close.read.closed/server"})
+    public void shouldReceiveClientSentWriteCloseReadClosed() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${app}/client.sent.write.close.before.handshake/client",
         "${app}/client.sent.write.close.before.handshake/server"})
     public void shouldReceiveClientSentWriteCloseBeforeHandshake() throws Exception

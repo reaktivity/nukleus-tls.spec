@@ -188,6 +188,15 @@ public class NetworkIT
 
     @Test
     @Specification({
+        "${net}/client.sent.write.close.read.closed/client",
+        "${net}/client.sent.write.close.read.closed/server"})
+    public void shouldReceiveClientSentWriteCloseReadClosed() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${net}/server.sent.write.abort/client",
         "${net}/server.sent.write.abort/server"})
     public void shouldReceiveServerSentWriteAbort() throws Exception
