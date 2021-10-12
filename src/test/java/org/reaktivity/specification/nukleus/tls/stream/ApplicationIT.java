@@ -239,6 +239,15 @@ public class ApplicationIT
 
     @Test
     @Specification({
+        "${app}/client.auth.mismatched/client",
+        "${app}/client.auth.mismatched/server"})
+    public void shouldRejectClientAuthMismatched() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${app}/server.sent.read.abort.before.handshake/client",
         "${app}/server.sent.read.abort.before.handshake/server"})
     public void shouldRejectServerSentReadAbortBeforeHandshake() throws Exception

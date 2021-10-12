@@ -102,6 +102,16 @@ public class NetworkIT
         k3po.finish();
     }
 
+    @Ignore("requires accepted only streams")
+    @Test
+    @Specification({
+        "${net}/client.auth.mismatched/client",
+        "${net}/client.auth.mismatched/server"})
+    public void shouldRejectClientAuthMismatched() throws Exception
+    {
+        k3po.finish();
+    }
+
     @Test
     @Specification({
         "${net}/echo.payload.length.10k/client",
